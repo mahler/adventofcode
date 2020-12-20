@@ -22,35 +22,61 @@ func main() {
 	}
 
 	//  before running the program, replace position 1 with the value 12 and replace position 2 with the value 2.
-	intOpCode[1] = 12
-	intOpCode[2] = 2
+	intOpCode[0] = 1
+	p1opCode := make([]int, len(intOpCode))
+	copy(p1opCode, intOpCode)
 
-	result := RunProgram(intOpCode)
+	p1opCode[1] = 12
+	p1opCode[2] = 2
+
+	fmt.Println()
+	fmt.Println("Day 02: 1202 Program Alarm")
+
+	result, _ := runProgram(p1opCode)
 	fmt.Println("result:", result)
-}
 
-func RunProgram(intOpCode []int) int {
-	fmt.Println(intOpCode)
-	currentPosition := 0
-	lastSavedValue := 0
-	for {
-		opCode := intOpCode[currentPosition]
-		if opCode == 1 {
-			// ADDition
-			lastSavedValue = intOpCode[intOpCode[currentPosition+1]] + intOpCode[intOpCode[currentPosition+2]]
-			intOpCode[intOpCode[currentPosition+3]] = lastSavedValue
+	fmt.Println()
+	fmt.Println("Part 2 - looking for 19690720")
 
-		} else if opCode == 2 {
-			// MULTIPLICATION
-			lastSavedValue = intOpCode[intOpCode[currentPosition+1]] * intOpCode[intOpCode[currentPosition+2]]
-			intOpCode[intOpCode[currentPosition+3]] = lastSavedValue
-
-		} else if opCode == 99 {
-			// END
+	foundMatch := false
+	p2result := 0
+	for noun := 0; noun < 100; noun++ {
+		for verb := 0; verb < 100; verb++ {
+			// make copy of program to test on
+			tmpCode := make([]int, len(intOpCode))
+			copy(tmpCode, intOpCode)
+			// setup test by modifying program data
+			tmpCode[1] = noun
+			tmpCode[2] = verb
+			// Run test
+			result, _ := runProgram(tmpCode)
+			if result == 19690720 {
+				p2result = noun*100 + verb
+				foundMatch = true
+				break
+			}
+		}
+		if foundMatch {
 			break
 		}
-		fmt.Println(intOpCode)
-		currentPosition += 4
 	}
-	return lastSavedValue
+	fmt.Println("Result for Part2:", p2result)
+}
+
+func runProgram(program []int) (result int, fault bool) {
+	ip := 0
+	for {
+		switch program[ip] {
+		case 1:
+			program[program[ip+3]] = program[program[ip+1]] + program[program[ip+2]]
+			ip += 4
+		case 2:
+			program[program[ip+3]] = program[program[ip+1]] * program[program[ip+2]]
+			ip += 4
+		case 99:
+			return program[0], false
+		default:
+			return 0, true
+		}
+	}
 }

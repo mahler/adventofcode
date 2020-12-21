@@ -66,13 +66,53 @@ func main() {
 
 			}
 		}
-		fmt.Println("Lights on:", countLightsInGrid(lightGrid))
 	}
 
 	fmt.Println("how many lights are lit?", countLightsInGrid(lightGrid))
 
 	// ------------ PART 2 ------------------------
+	// Setup lightgrid
+	lGrid := make([][]int, 1000)
+	for i := 0; i < 1000; i++ {
+		lGrid[i] = make([]int, 1000)
+	}
+
 	fmt.Println()
+	fmt.Println("Part 2")
+	for _, fileLine := range fileLines {
+		if strings.Contains(fileLine, "turn ") {
+			fileLine = fileLine[5:]
+		}
+
+		fields := regexpData.FindStringSubmatch(fileLine)
+
+		// fmt.Println(fields)
+		instruction := fields[1]
+		rowStart, _ := strconv.Atoi(fields[2])
+		rowEnd, _ := strconv.Atoi(fields[4])
+		colStart, _ := strconv.Atoi(fields[3])
+		colEnd, _ := strconv.Atoi(fields[5])
+
+		for col := colStart; col <= colEnd; col++ {
+			for row := rowStart; row <= rowEnd; row++ {
+				if instruction == "on" {
+					lGrid[col][row]++
+				} else if instruction == "off" {
+					lGrid[col][row]--
+					if lGrid[col][row] < 0 {
+						lGrid[col][row] = 0
+					}
+				} else if instruction == "toggle" {
+					lGrid[col][row] += 2
+				} else {
+					fmt.Println("ERRRRRRRRRROR!", instruction)
+				}
+
+			}
+		}
+	}
+	fmt.Println("total brightness:", brightnessCalc(lGrid))
+
 }
 
 func countLightsInGrid(lights [][]int) int {
@@ -83,6 +123,18 @@ func countLightsInGrid(lights [][]int) int {
 			if lights[column][row] == 1 {
 				counter++
 			}
+		}
+	}
+
+	return counter
+}
+
+func brightnessCalc(lights [][]int) int {
+	counter := 0
+
+	for column := 0; column < len(lights); column++ {
+		for row := 0; row < len(lights[0]); row++ {
+			counter += lights[column][row]
 		}
 	}
 

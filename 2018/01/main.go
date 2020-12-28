@@ -37,7 +37,7 @@ func main() {
 
 	// Reset starting frequency
 	frequency = 0
-	seenFrq := make(map[int]int)
+	seenFrq := make(map[int]bool)
 	found := false
 
 	// Make sure we loop over calibration list
@@ -52,7 +52,7 @@ func main() {
 				found = true
 				break
 			} else {
-				seenFrq[frequency] = 0
+				seenFrq[frequency] = true
 			}
 
 		}

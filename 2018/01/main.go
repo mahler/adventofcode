@@ -46,8 +46,7 @@ func main() {
 			cali, _ := strconv.Atoi(calibration)
 			frequency += cali
 
-			_, ok := seenFrq[frequency]
-			if ok {
+			if _, ok := seenFrq[frequency]; ok {
 				fmt.Println("First Duplicate Frequency:", frequency)
 				found = true
 				break

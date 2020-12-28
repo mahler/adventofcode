@@ -65,5 +65,38 @@ func main() {
 	}
 
 	fmt.Println("Squares claimed by at least two:", multiClaimSquares)
+	// ----------------------------------------------------------------------------------------------------
+
+	fmt.Println()
+	fmt.Println("Part 2")
+
+	for _, claim := range fileContent {
+		checkFailed := false
+		fields := claimRegExp.FindStringSubmatch(claim)
+		//fmt.Println(fields)
+		claimID := fields[1]
+		xStart, _ := strconv.Atoi(fields[2])
+		yStart, _ := strconv.Atoi(fields[3])
+		xWidth, _ := strconv.Atoi(fields[4])
+		yHeight, _ := strconv.Atoi(fields[5])
+
+		xEnd := xStart + xWidth
+		yEnd := yStart + yHeight
+
+		// fmt.Println("Claim", claimID, "X (", xStart, ",", xEnd, ") - Y(", yStart, ",", yEnd, ")")
+
+		for x := xStart; x < xEnd; x++ {
+			for y := yStart; y < yEnd; y++ {
+				if fabric[x][y] > 1 {
+					checkFailed = true
+				}
+			}
+		}
+
+		if !checkFailed {
+			fmt.Println("Claim", claimID, "is not claimed by others")
+			break
+		}
+	}
 
 }

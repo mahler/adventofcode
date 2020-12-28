@@ -19,20 +19,42 @@ func main() {
 	fmt.Println()
 	fmt.Println("2018")
 	fmt.Println("DAY01, Part 1: Chronal Calibration")
-	fmt.Println("Total passwords in dataset: ", len(fileContent))
+	fmt.Println("Total instructions in dataset: ", len(fileContent))
 
 	// Starting frequency
 	frequency := 0
 
 	for _, calibration := range fileContent {
 		cali, _ := strconv.Atoi(calibration)
-
 		frequency += cali
 	}
 
 	fmt.Println("End frequency:", frequency)
 
+	// -------------------------------------------------------------
 	fmt.Println()
 	fmt.Println("Part 2")
 
+	// Reset starting frequency
+	frequency = 0
+	seenFrq := make(map[int]int)
+	found := false
+
+	// Make sure we loop over calibration list
+	for !found {
+		for _, calibration := range fileContent {
+			cali, _ := strconv.Atoi(calibration)
+			frequency += cali
+
+			_, ok := seenFrq[frequency]
+			if ok {
+				fmt.Println("First Duplicate Frequency:", frequency)
+				found = true
+				break
+			} else {
+				seenFrq[frequency] = 0
+			}
+
+		}
+	}
 }

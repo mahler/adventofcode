@@ -24,9 +24,11 @@ func main() {
 	threeLetters := 0
 
 	for _, boxid := range fileContent {
+		// that have an ID containing exactly two of any letter
 		if hasNumberLetters(boxid, 2) {
 			twoLetters++
 		}
+		// and then separately counting those with exactly three of any letter.
 		if hasNumberLetters(boxid, 3) {
 			threeLetters++
 		}
@@ -36,8 +38,24 @@ func main() {
 	fmt.Println("Boxes with two letters:", twoLetters)
 	fmt.Println("Boxes with three letters:", threeLetters)
 	fmt.Println("Checksum:", twoLetters*threeLetters)
-	// that have an ID containing exactly two of any letter
-	// and then separately counting those with exactly three of any letter.
+	// ------------------------------------------------------------------------
+	fmt.Println()
+	fmt.Println("Part 2")
+	seen := make(map[string]bool)
+	for _, boxid := range fileContent {
+		// For every letter position in boxid
+		for i := 0; i < len(boxid); i++ {
+			// Create a map key with the truncated version
+			truncated := boxid[:i] + "_" + boxid[i+1:]
+			// If map key exists we found the match
+			if seen[truncated] {
+				common := strings.Replace(truncated, "_", "", 1)
+				fmt.Println(common)
+			}
+			seen[truncated] = true
+		}
+	}
+
 }
 
 func hasNumberLetters(boxid string, letterOccurence int) bool {

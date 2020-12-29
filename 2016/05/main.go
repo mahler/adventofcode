@@ -1,0 +1,35 @@
+package main
+
+import (
+	"crypto/md5"
+	"fmt"
+	"io"
+	"strings"
+)
+
+func main() {
+	input := "reyedfim"
+
+	fmt.Println()
+	fmt.Println("2016")
+	fmt.Println("Day 05, Part 1: How About a Nice Game of Chess?")
+
+	password := ""
+	suffix := 0
+	for pwIndex := 0; pwIndex < 8; suffix++ {
+
+		testString := fmt.Sprintf("%s%d", input, suffix)
+		hash := md5.New()
+		io.WriteString(hash, testString)
+		hashString := fmt.Sprintf("%x", hash.Sum(nil))
+
+		if strings.Index(hashString, "00000") == 0 {
+			password += string(hashString[5])
+			pwIndex++
+		}
+	}
+	fmt.Println("Cracked password:")
+	fmt.Println(password)
+
+	// ----------------------------------------------------------------
+}

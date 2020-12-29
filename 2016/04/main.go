@@ -25,17 +25,18 @@ func main() {
 
 	sectorSum := 0
 
-	p2Data := make(map[string]int)
+	p2data := make(map[string]int)
 
 	fileRows := strings.Split(string(fileContent), "\n")
 	for _, fileRow := range fileRows {
 
 		fields := regexpData.FindStringSubmatch(fileRow)
 
-		// fmt.Println(fields)
 		encryptedName := fields[1]
 		sectorID, _ := strconv.Atoi(fields[2])
 		checkSum := fields[3]
+
+		p2data[encryptedName] = sectorID
 
 		eName := strings.ReplaceAll(encryptedName, "-", "")
 
@@ -44,14 +45,23 @@ func main() {
 		if roomChecksum == checkSum {
 			sectorSum += sectorID
 		}
-		// -------------------------------------------------
-		fmt.Println()
-		fmt.Println("Part 2: northpole object storage")
 
 	}
 
 	fmt.Println("sum of the sector IDs of the real rooms?")
 	fmt.Println(sectorSum)
+
+	// -------------------------------------------------
+	fmt.Println()
+	fmt.Println("Part 2: northpole object storage")
+
+	for eName, sectorid := range p2data {
+		decryptedName := decryptName(eName, sectorid)
+		if decryptedName == "northpole object storage" {
+			fmt.Println("The Northpole Object Storage is located in sector", sectorid)
+			break
+		}
+	}
 }
 
 // Originally sourced from https://github.com/Atvaark/AdventOfCode2016/blob/master/day04/main.go
@@ -103,3 +113,23 @@ type runes []rune
 func (s runes) Len() int           { return len(s) }
 func (s runes) Less(i, j int) bool { return s[i] < s[j] }
 func (s runes) Swap(i, j int)      { s[i], s[j] = s[j], s[i] }
+
+func decryptName(encryptedName string, seed int) string {
+	minAlph := int('a')
+	maxAlph := int('z')
+	diffAlph := maxAlph - minAlph + 1
+
+	decrypted := make([]rune, len(encryptedName))
+	for i, char := range encryptedName {
+		if char == '-' {
+			decrypted[i] = ' '
+			continue
+		}
+
+		value := int(char)
+		decryptedValue := minAlph + ((value - minAlph + seed) % diffAlph)
+		decrypted[i] = rune(decryptedValue)
+	}
+
+	return string(decrypted[:])
+}

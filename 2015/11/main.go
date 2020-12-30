@@ -15,6 +15,15 @@ func main() {
 			break
 		}
 	}
+	// ---------------------------------------
+	fmt.Println("Part 2")
+	for {
+		input = nextPassword(input)
+		if hasIncreasingStraight(input) && !hasForbiddenLetters(input) && hasAtLeastTwoPairs(input) {
+			fmt.Println("Santa's second new password:", input)
+			break
+		}
+	}
 }
 
 func nextPassword(password string) string {

@@ -70,7 +70,6 @@ func main() {
 	})
 
 	//fmt.Println("Permutations:", len(combiList))
-	//fmt.Println(letter2guest)
 
 	maxHappiness := 0
 	// Loop through guest permutations (combilist)
@@ -78,10 +77,10 @@ func main() {
 		happiness := 0
 		gRC := guestRuneCombi[1 : len(guestRuneCombi)-1]
 		fields := strings.Fields(gRC)
-		//fmt.Println(fields)
 		for gPos, gLetter := range fields {
 			thisGuest := letter2guest[gLetter]
 			nextGuest := ""
+			// Find next guest: If last guest in the circle...
 			if gPos+1 > len(fields)-1 {
 				nextGuest = letter2guest[fields[0]]
 			} else {
@@ -89,6 +88,7 @@ func main() {
 			}
 
 			//fmt.Println(gPos, ": Guest", thisGuest, " - ", nextGuest)
+			// Collect happiness from both sidess
 			happiness += guestList[thisGuest][nextGuest]
 			happiness += guestList[nextGuest][thisGuest]
 		}
@@ -102,6 +102,7 @@ func main() {
 	fmt.Println("What is the total change in happiness for")
 	fmt.Println("the optimal seating arrangement of the actual guest list?")
 	fmt.Println(maxHappiness)
+
 	// Part 2 -----------------------------
 	fmt.Println()
 	fmt.Println("Part 2")
@@ -122,7 +123,7 @@ func main() {
 		p2combiList = append(p2combiList, cGuest)
 	})
 
-	fmt.Println("P2Permutations:", len(p2combiList))
+	//fmt.Println("P2Permutations:", len(p2combiList))
 
 	p2maxHappiness := 0
 	// Loop through guest permutations (combilist)
@@ -130,7 +131,6 @@ func main() {
 		happiness := 0
 		gRC := guestRuneCombi[1 : len(guestRuneCombi)-1]
 		fields := strings.Fields(gRC)
-		//fmt.Println(fields)
 		for gPos, gLetter := range fields {
 			thisGuest := letter2guest[gLetter]
 			nextGuest := ""
@@ -139,12 +139,9 @@ func main() {
 			} else {
 				nextGuest = letter2guest[fields[gPos+1]]
 			}
-
-			//fmt.Println(gPos, ": Guest", thisGuest, " - ", nextGuest)
 			happiness += guestList[thisGuest][nextGuest]
 			happiness += guestList[nextGuest][thisGuest]
 		}
-		//fmt.Println("Happiness for combo:", happiness)
 
 		if happiness > p2maxHappiness {
 			p2maxHappiness = happiness
@@ -152,7 +149,7 @@ func main() {
 	}
 
 	fmt.Println("What is the total change in happiness for")
-	fmt.Println("the optimal seating arrangement of the actual guest list?")
+	fmt.Println("the optimal seating with me at table?")
 	fmt.Println(p2maxHappiness)
 
 }
@@ -163,6 +160,7 @@ func Perm(a []rune, f func([]rune)) {
 }
 
 // Permute the values at index i to len(a)-1.
+// Sourced from https://yourbasic.org/golang/generate-permutation-slice-string/
 func perm(a []rune, f func([]rune), i int) {
 	if i > len(a) {
 		f(a)

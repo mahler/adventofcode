@@ -16,18 +16,25 @@ func main() {
 
 	}
 	lines := strings.Split(strings.TrimSpace(string(fileContent)), "\n")
-	fmt.Println("Guest list:", len(lines))
+	//fmt.Println("Guest list:", len(lines))
 
 	// Read guest preferences into rule datastructure
 	rxGuestPref := regexp.MustCompile(`^(\w+) would (\w+) (\d+) happiness units by sitting next to (\w+)`)
 
+	// Used to store seating preferences
 	guestList := make(map[string]map[string]int)
+	// Used as input for permutations
 	guestKeys := make(map[string]bool)
+	// Used to translate the letters used for permutations to guestnames.
+	letter2guest := make(map[string]string)
+
 	for _, guestPref := range lines {
 		// Parse line into vars
 		fields := rxGuestPref.FindStringSubmatch(guestPref)
 		guestname := fields[1]
 		letter := guestname[0:1]
+
+		letter2guest[letter] = guestname
 		nextTo := fields[4]
 		happyDir := fields[2]
 		happiness, _ := strconv.Atoi(fields[3])
@@ -45,7 +52,9 @@ func main() {
 		guestKeys[letter] = true
 	}
 	// Part 1 ------------------------------------------
-
+	fmt.Println()
+	fmt.Println("2015")
+	fmt.Println("Day 13 part 1: Knights of the Dinner Table")
 	permGuests := []rune{}
 
 	for key := range guestKeys {
@@ -60,15 +69,38 @@ func main() {
 		combiList = append(combiList, cGuest)
 	})
 
-	fmt.Println("Permutations:", len(combiList))
+	//fmt.Println("Permutations:", len(combiList))
+	//fmt.Println(letter2guest)
 
 	maxHappiness := 0
 	// Loop through guest permutations (combilist)
-	// Calculate the happiness
-	// save the highest total hapiness as result for part one.
-	// Bonus: Consider saving the permutation which gave the highest happiness.
+	for _, guestRuneCombi := range combiList {
+		happiness := 0
+		gRC := guestRuneCombi[1 : len(guestRuneCombi)-1]
+		fields := strings.Fields(gRC)
+		//fmt.Println(fields)
+		for gPos, gLetter := range fields {
+			thisGuest := letter2guest[gLetter]
+			nextGuest := ""
+			if gPos+1 > len(fields)-1 {
+				nextGuest = letter2guest[fields[0]]
+			} else {
+				nextGuest = letter2guest[fields[gPos+1]]
+			}
 
-	fmt.Println("What is the *total change in happiness for the optimal seating arrangement of the actual guest list?")
+			//fmt.Println(gPos, ": Guest", thisGuest, " - ", nextGuest)
+			happiness += guestList[thisGuest][nextGuest]
+			happiness += guestList[nextGuest][thisGuest]
+		}
+		//fmt.Println("Happiness for combo:", happiness)
+
+		if happiness > maxHappiness {
+			maxHappiness = happiness
+		}
+	}
+
+	fmt.Println("What is the total change in happiness for")
+	fmt.Println("the optimal seating arrangement of the actual guest list?")
 	fmt.Println(maxHappiness)
 	// Part 2 -----------------------------
 

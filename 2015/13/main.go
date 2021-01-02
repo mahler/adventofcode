@@ -103,6 +103,57 @@ func main() {
 	fmt.Println("the optimal seating arrangement of the actual guest list?")
 	fmt.Println(maxHappiness)
 	// Part 2 -----------------------------
+	fmt.Println()
+	fmt.Println("Part 2")
+	// Insert "Me" in guest list
+	guestList["Me"] = make(map[string]int)
+	for _, guestName := range letter2guest {
+		guestList["Me"][guestName] = 0
+	}
+	letter2guest["X"] = "Me"
+	permGuests = append(permGuests, rune('X'))
+
+	// Part 2 setup down, let's run the planning again...
+
+	p2combiList := []string{}
+	Perm([]rune(permGuests), func(a []rune) {
+		cGuest := fmt.Sprintf("%c", a)
+
+		p2combiList = append(p2combiList, cGuest)
+	})
+
+	fmt.Println("P2Permutations:", len(p2combiList))
+
+	p2maxHappiness := 0
+	// Loop through guest permutations (combilist)
+	for _, guestRuneCombi := range p2combiList {
+		happiness := 0
+		gRC := guestRuneCombi[1 : len(guestRuneCombi)-1]
+		fields := strings.Fields(gRC)
+		//fmt.Println(fields)
+		for gPos, gLetter := range fields {
+			thisGuest := letter2guest[gLetter]
+			nextGuest := ""
+			if gPos+1 > len(fields)-1 {
+				nextGuest = letter2guest[fields[0]]
+			} else {
+				nextGuest = letter2guest[fields[gPos+1]]
+			}
+
+			//fmt.Println(gPos, ": Guest", thisGuest, " - ", nextGuest)
+			happiness += guestList[thisGuest][nextGuest]
+			happiness += guestList[nextGuest][thisGuest]
+		}
+		//fmt.Println("Happiness for combo:", happiness)
+
+		if happiness > p2maxHappiness {
+			p2maxHappiness = happiness
+		}
+	}
+
+	fmt.Println("What is the total change in happiness for")
+	fmt.Println("the optimal seating arrangement of the actual guest list?")
+	fmt.Println(p2maxHappiness)
 
 }
 

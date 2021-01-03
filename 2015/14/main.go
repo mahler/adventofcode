@@ -14,6 +14,10 @@ type reindeer struct {
 	speed        int
 	speedSeconds int
 	restSeconds  int
+	// Part2 extension
+	distance int
+	segment  int
+	points   int
 }
 
 func main() {
@@ -53,6 +57,13 @@ func main() {
 	fmt.Println("2015")
 	fmt.Println("Day 14, part 1: Reindeer Olympics")
 	fmt.Println(maxName, "won with a distance of", maxDistance)
+
+	// Part 2 -----------------------------------
+	fmt.Println()
+	fmt.Println("Part 2")
+	rDeer, points := runReindeerRace(santasReindeer, 2503)
+
+	fmt.Println("Winner is", rDeer.name, "with total points of", points)
 }
 
 // distanceBySconds will calculate how far a reindeer will get in secondsToMove
@@ -70,4 +81,50 @@ func (r reindeer) distanceBySecondes(secondsToMove int) int {
 		segment++
 	}
 	return distance
+}
+
+func runReindeerRace(reindeers []reindeer, raceTime int) (reindeer, int) {
+
+	// For every second of the race
+	for x := 0; x < raceTime; x++ {
+		maxDistance := 0
+		for rDeer := range reindeers {
+			thisDeer := reindeers[rDeer]
+			// ---
+			//fmt.Println(x, ": segment", segment, "distance:", distance)
+			if thisDeer.segment > 0 {
+				thisDeer.distance += thisDeer.speed
+			}
+			if thisDeer.segment == thisDeer.speedSeconds {
+				thisDeer.segment = 0 - thisDeer.restSeconds
+			}
+			thisDeer.segment++
+
+			if thisDeer.distance > maxDistance {
+				maxDistance = thisDeer.distance
+			}
+			// ---
+			reindeers[rDeer] = thisDeer
+		}
+		// Finished moving reindeers, assign point for leader(s).
+		for rDeer := range reindeers {
+			if reindeers[rDeer].distance == maxDistance {
+				reindeers[rDeer].points++
+			}
+		}
+	}
+
+	roundLead := 0
+	maxPoints := 0
+	for rDeer := range reindeers {
+		if reindeers[rDeer].points > maxPoints {
+			maxPoints = reindeers[rDeer].points
+			roundLead = rDeer
+		}
+	}
+
+	// One round too many of round points, so subtract one.
+	maxPoints--
+
+	return reindeers[roundLead], maxPoints
 }

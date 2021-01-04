@@ -51,17 +51,24 @@ func main() {
 	part([]int{}, 100, len(ingredients), &partitions)
 	first := true
 	highestScore := 0
+	second := true
+	highestCalorie := 0
 	for i := 0; i < len(partitions); i++ {
 		capacity := 0
 		durability := 0
 		flavor := 0
 		texture := 0
+		calories := 0 // p2 only
+
 		for p := 0; p < len(ingredients); p++ {
 			capacity += partitions[i][p] * ingredients[p].capacity
 			durability += partitions[i][p] * ingredients[p].durability
 			flavor += partitions[i][p] * ingredients[p].flavor
 			texture += partitions[i][p] * ingredients[p].texture
+			calories += partitions[i][p] * ingredients[p].calories // p2 only
+
 		}
+		// Part 1 calc
 		cookieScore := 0
 		if capacity > 0 && durability > 0 && flavor > 0 && texture > 0 {
 			cookieScore = capacity * durability * flavor * texture
@@ -70,9 +77,24 @@ func main() {
 			highestScore = cookieScore
 			first = false
 		}
+		// Part 2 extension...
+		calorieScore := 0
+		if capacity > 0 && durability > 0 && flavor > 0 && texture > 0 && calories == 500 {
+			calorieScore = capacity * durability * flavor * texture
+		}
+		if second || calorieScore > highestCalorie {
+			highestCalorie = calorieScore
+			second = false
+		}
+
 	}
 	fmt.Println("what is the total score of the highest-scoring cookie?")
 	fmt.Println(highestScore)
+	// -------------------------
+	fmt.Println("Part 2: what is the total score of the highest-scoring")
+	fmt.Println("cookie you can make with a calorie total of 500?")
+	fmt.Println(highestCalorie)
+
 }
 
 func part(prefix []int, number int, parts int, results *[][]int) {

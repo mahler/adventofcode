@@ -1,6 +1,6 @@
 # Advent of code
 
-This repo contains solutions to Advent of code challenges.
+This repo contains solutions to Advent of code challenges. This is not a complete set, as I'm still working to solve tasks across every year.
 
 I am using the AoC to learn and practice Go development.
 

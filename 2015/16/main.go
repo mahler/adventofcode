@@ -73,5 +73,36 @@ func main() {
 	}
 	// --------------------------------
 	// Part 2
+	fmt.Println()
+	fmt.Println("Part 2: retroencabulator")
+	for numberAunt, thisAunt := range aunts {
+		check := true
+		for thisKey, thisValue := range thisAunt {
+			if masterValue, ok := masterAunt[thisKey]; ok {
+				if thisKey == "cats" || thisKey == "trees" {
+					if masterValue >= thisValue {
+						check = false
+						break
+					}
+				} else if thisKey == "pomeranians" || thisKey == "goldfish" {
+					if masterValue <= thisValue {
+						check = false
+						break
+					}
+				} else if masterValue != thisValue {
+					check = false
+					break
+				}
+			} else {
+				check = false
+				break
+			}
 
+		}
+		if check {
+			fmt.Println("The gift is REALLY from:")
+			// Add one to numberAunt to offset 0-based slice.
+			fmt.Println("Ant Sue", numberAunt+1)
+		}
+	}
 }

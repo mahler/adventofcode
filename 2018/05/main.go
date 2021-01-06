@@ -32,8 +32,6 @@ func main() {
 	fmt.Println("2018 - Day 05, Part 1")
 	fmt.Println("Alchemical Reduction")
 
-	//source = "dabAcCaCBAcCcaDA"
-
 	for {
 		preLenght := len(source)
 		source = reduce(source)
@@ -45,6 +43,36 @@ func main() {
 	fmt.Println()
 	fmt.Println("How many units remain after fully reacting the polymer you scanned? ")
 	fmt.Println(len(source))
+
+	// Part 2
+	// -------------------------------------
+	fmt.Println()
+	fmt.Println("Part 2/")
+	originalPolymer := string(fileContent)
+	shortestReduction := len(originalPolymer)
+	polymer := ""
+	for r := 'a'; r < 'z'; r++ {
+		polymer = originalPolymer
+		letterToCut := fmt.Sprintf("%c", r)
+
+		// Remove letter
+		polymer = strings.Replace(polymer, letterToCut, "", -1)
+		polymer = strings.Replace(polymer, strings.ToUpper(letterToCut), "", -1)
+
+		// Run reduction...
+		for {
+			preLenght := len(polymer)
+			polymer = reduce(polymer)
+			if preLenght == len(polymer) {
+				// No more reduction possible.
+				break
+			}
+		}
+		if len(polymer) < shortestReduction {
+			shortestReduction = len(polymer)
+		}
+	}
+	fmt.Printf("Shortest possible reaction is %d\n", shortestReduction)
 }
 
 func reduce(s string) string {

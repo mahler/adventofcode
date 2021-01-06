@@ -14,7 +14,6 @@ written to be readable and expressive, and as new to go, it may not be [idiomati
 - [dandua98/AdventOfCode2018](https://github.com/dandua98/AdventOfCode2018)
 - [feffes/adventofcode2018](https://github.com/feffes/adventofcode2018)
 - [feiss/aoc2018](https://github.com/feiss/aoc2018)
-- [fesh0r/adventofcode](https://github.com/fesh0r/adventofcode)
 - [fvm/super-duper-barnacle-AoC-2018](https://github.com/fvm/super-duper-barnacle-AoC-2018)
 - [glidergeek/adventofcode18](https://github.com/glidergeek/adventofcode18) 
 - [kindermoumoute/adventofcode](https://github.com/kindermoumoute/adventofcode)

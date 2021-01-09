@@ -9,7 +9,6 @@ written to be readable and expressive, and as new to go, it may not be [idiomati
 
 - [Alex-Wauters/advent-code-2018](https://github.com/Alex-Wauters/advent-code-2018)
 - [VictorHom/advent_of_code_2018](https://github.com/VictorHom/advent_of_code_2018)
-- [apg258/Advent-Of-Code](https://github.com/apg258/Advent-Of-Code)
 - [atssteve/advent_of_code_2018](https://github.com/atssteve/advent_of_code_2018)
 - [dandua98/AdventOfCode2018](https://github.com/dandua98/AdventOfCode2018)
 - [feffes/adventofcode2018](https://github.com/feffes/adventofcode2018)
@@ -18,11 +17,10 @@ written to be readable and expressive, and as new to go, it may not be [idiomati
 - [glidergeek/adventofcode18](https://github.com/glidergeek/adventofcode18) 
 - [kindermoumoute/adventofcode](https://github.com/kindermoumoute/adventofcode)
 - [mauricioabreu/AdventOfCode2018](https://github.com/mauricioabreu/AdventOfCode2018)
-- [metalim/metalim.adventofcode.2018.go]
+- [metalim/metalim.adventofcode.2018.go](https://github.com/metalim/metalim.adventofcode.2018.go)
 - [thlacroix/goadvent](https://github.com/thlacroix/goadvent) 
 - [tpaschalis/Golang-practice](https://github.com/tpaschalis/Golang-practice)
 - [wilbertom/advent-of-code-2018](https://github.com/wilbertom/advent-of-code-2018)
-- [leononame/awesome-advent-of-code](https://github.com/leononame/awesome-advent-of-code)
 - [stephenfeagin/Go-AdventOfCode](https://github.com/stephenfeagin/Go-AdventOfCode)
 - [GreenLightning/aoc18](https://github.com/GreenLightning/aoc18)
 - [mnml/aoc](https://github.com/mnml/aoc)

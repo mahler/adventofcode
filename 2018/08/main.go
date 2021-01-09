@@ -52,30 +52,32 @@ func parse(input []int) (*node, int) {
 }
 
 // Sum findes the sum of all metadata entries
-func sum(n *node) (s int) {
+func sum(n *node) int {
+	su := 0
 	for _, c := range n.children {
-		s += sum(c)
+		su += sum(c)
 	}
 	for _, meta := range n.metadata {
-		s += meta
+		su += meta
 	}
-	return s
+	return su
 }
 
 // value calculate the value recursicely of a node
-func (n *node) value() (s int) {
+func (n *node) value() int {
+	sum := 0
 	if len(n.children) == 0 {
-		for _, meta := range n.metadata {
-			s += meta
+		for _, mData := range n.metadata {
+			sum += mData
 		}
-		return s
+		return sum
 	}
-	for _, meta := range n.metadata {
-		if meta > len(n.children) {
-			s += 0
+	for _, mData := range n.metadata {
+		if mData > len(n.children) {
+			sum += 0
 		} else {
-			s += n.children[meta-1].value()
+			sum += n.children[mData-1].value()
 		}
 	}
-	return s
+	return sum
 }

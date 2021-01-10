@@ -77,7 +77,9 @@ func main() {
 	//	fmt.Println(len(config))
 	boss := player{hitpoint: 100, damage: 8, armor: 2}
 
+	// leastCost init with some high random number, as the assumed result cost is well below.
 	leastCost := 99999
+	maxCost := 0
 
 	// Let's play every config setup...
 	for _, playConfig := range config {
@@ -92,6 +94,10 @@ func main() {
 			if player.configCost < leastCost {
 				leastCost = player.configCost
 			}
+		} else { // Part 2
+			if player.configCost > maxCost {
+				maxCost = player.configCost
+			}
 		}
 
 		//fmt.Println("config: armour/", player.armor, "damage/", player.damage, "cost/", player.configCost)
@@ -102,6 +108,10 @@ func main() {
 	fmt.Println("What is the least amount of gold you can spend and still win the fight?")
 	fmt.Println(leastCost)
 	// -------------------------
+	fmt.Println()
+	fmt.Println("Part 2")
+	fmt.Println("What is the most amount of gold you can spend and still lose the fight?")
+	fmt.Println(maxCost)
 
 }
 

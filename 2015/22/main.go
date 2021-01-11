@@ -49,6 +49,11 @@ func main() {
 	}
 	fmt.Println("What is the least amount of mana you can spend and still win the fight?")
 	fmt.Println(min)
+	// Part 2 -----------------
+	fmt.Println()
+	fmt.Println("Part 2")
+	fmt.Println("With the same starting stats for you and the boss,")
+	fmt.Println("what is the least amount of mana you can spend and still win the fight?")
 }
 
 func play(mana int, you, boss player, spells map[string]spell, max, depth int) int {
@@ -99,6 +104,15 @@ func attack(player, defender player) (player, player, bool) {
 
 func cast(name string, spell spell, player, defender player) (player, player, bool) {
 	player, defender = timer(player, defender)
+	// ---- P2
+	part2 := false
+	if part2 {
+		player.hitpoint--
+		if player.hitpoint <= 0 {
+			return player, defender, true
+		}
+	}
+	//----
 	if defender.hitpoint <= 0 {
 		return player, defender, true
 	}

@@ -25,6 +25,7 @@ func main() {
 	fmt.Println()
 	fmt.Println("2015")
 	fmt.Println("Day 22, Part 1: Wizard Simulator 20XX")
+	part2 := false
 	min := 10000
 	for i := 1; min == 10000; i++ {
 		spells := map[string]spell{
@@ -45,24 +46,49 @@ func main() {
 			damage:   9,
 		}
 
-		min = play(0, p1, boss, spells, min, i)
+		min = play(0, p1, boss, spells, min, i, part2)
 	}
 	fmt.Println("What is the least amount of mana you can spend and still win the fight?")
 	fmt.Println(min)
 	// Part 2 -----------------
 	fmt.Println()
 	fmt.Println("Part 2")
+	part2 = true
+	min = 10000
+	for i := 1; min == 10000; i++ {
+		spells := map[string]spell{
+			"Magic Missile": spell{53, 0, 0, 4, 0, -1},
+			"Drain":         spell{73, 2, 0, 2, 0, -1},
+			"Shield":        spell{113, 0, 0, 0, 7, 6},
+			"Poison":        spell{173, 0, 0, 3, 0, 6},
+			"Recharge":      spell{229, 0, 101, 0, 0, 5},
+		}
+
+		p1 := player{
+			hitpoint: 50,
+			mana:     500,
+		}
+
+		boss := player{
+			hitpoint: 51,
+			damage:   9,
+		}
+
+		min = play(0, p1, boss, spells, min, i, part2)
+	}
+
 	fmt.Println("With the same starting stats for you and the boss,")
 	fmt.Println("what is the least amount of mana you can spend and still win the fight?")
+	fmt.Println(min)
 }
 
-func play(mana int, you, boss player, spells map[string]spell, max, depth int) int {
+func play(mana int, you, boss player, spells map[string]spell, max, depth int, part2 bool) int {
 	result := 10000
 	if depth == 0 || mana > max {
 		return result
 	}
 	for name, spell := range spells {
-		nyou, nboss, ended := cast(name, spell, you, boss)
+		nyou, nboss, ended := cast(name, spell, you, boss, part2)
 		if ended {
 			if nboss.hitpoint <= 0 {
 				if result > mana+spell.cost {
@@ -81,7 +107,7 @@ func play(mana int, you, boss player, spells map[string]spell, max, depth int) i
 			continue
 		}
 
-		playGame := play(mana+spell.cost, nyou, nboss, spells, max, depth-1)
+		playGame := play(mana+spell.cost, nyou, nboss, spells, max, depth-1, part2)
 		if playGame < result {
 			result = playGame
 		}
@@ -102,10 +128,9 @@ func attack(player, defender player) (player, player, bool) {
 	return player, defender, defender.hitpoint <= 0
 }
 
-func cast(name string, spell spell, player, defender player) (player, player, bool) {
+func cast(name string, spell spell, player, defender player, part2 bool) (player, player, bool) {
 	player, defender = timer(player, defender)
 	// ---- P2
-	part2 := false
 	if part2 {
 		player.hitpoint--
 		if player.hitpoint <= 0 {

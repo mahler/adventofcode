@@ -19,18 +19,10 @@ func main() {
 		}
 	}
 
-	//	fmt.Println(calcFuel(122, 79, 57), "== -5")
-	//	fmt.Println(calcFuel(217, 196, 39), "== 9")
-	//	fmt.Println(calcFuel(101, 153, 71), "== 4")
-
 	colMax, rowMax, topScore := 0, 0, 0
-
 	for row := 1; row <= 298; row++ {
 		for col := 1; col <= 298; col++ {
-			cellScore := fuelCell[row][col] + fuelCell[row+1][col] + fuelCell[row+2][col]
-			cellScore += fuelCell[row][col+1] + fuelCell[row+1][col+1] + fuelCell[row+2][col+1]
-			cellScore += fuelCell[row][col+2] + fuelCell[row+1][col+2] + fuelCell[row+2][col+2]
-
+			cellScore := calcScore(fuelCell, row, col, 3)
 			if cellScore > topScore {
 				topScore = cellScore
 				colMax = col
@@ -44,7 +36,42 @@ func main() {
 	fmt.Println("Day 11, Part 1: Chronal Charge")
 	fmt.Println("TopScore:", topScore)
 	fmt.Printf("X,Y: %d,%d\n", colMax, rowMax)
+	// --------------------------
 
+	fmt.Println("Part 2")
+	fmt.Println("Slow... patience please")
+	colMax, rowMax, topScore = 0, 0, 0
+	gridMax := 0
+	for row := 1; row <= 298; row++ {
+		for col := 1; col <= 298; col++ {
+			// min grid 3x3.
+			for gSize := 3; gSize < len(fuelCell); gSize++ {
+
+				cellScore := calcScore(fuelCell, row, col, gSize)
+				// fmt.Println(row, col, gSize, cellScore)
+				if cellScore > topScore {
+					topScore = cellScore
+					colMax = col
+					rowMax = row
+					gridMax = gSize
+				}
+			}
+
+		}
+	}
+	fmt.Printf("%d,%d,%d\n", colMax, rowMax, gridMax)
+}
+
+func calcScore(grid map[int]map[int]int, x, y, gridSize int) int {
+	theScore := 0
+
+	for a := 0; a < gridSize; a++ {
+		for b := 0; b < gridSize; b++ {
+			theScore += grid[x+a][y+b]
+		}
+	}
+
+	return theScore
 }
 
 func calcFuel(x, y, grid int) int {

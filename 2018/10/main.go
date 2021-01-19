@@ -16,13 +16,6 @@ type Starlight struct {
 	velocityY int
 }
 
-type CanvasSize struct {
-	minX int
-	maxX int
-	minY int
-	maxY int
-}
-
 func main() {
 
 	data, err := ioutil.ReadFile("puzzle.txt")
@@ -52,35 +45,32 @@ func main() {
 		stars = append(stars, &newStar)
 	}
 
-	round := 0
+	round := 1
 	for {
-		fmt.Println("Round", round)
 		for _, star := range stars {
 			star.posX += star.velocityX
 			star.posY += star.velocityY
 		}
 
 		_, minY, _, maxY := edges(stars)
-		//	fmt.Println(minX, maxX, "--", minY, maxY, "XXX:", maxY-minY)
+		//	fmt.Println(round, ": Cols/", maxY-minY)
 
-		if maxY-minY < 20 {
-			fmt.Println("Round", round)
+		if maxY-minY < 10 {
+			fmt.Println()
 			printCanvas(stars)
+
+			fmt.Println()
+			fmt.Println("Part2:")
+			fmt.Println("Round", round)
 		} else {
 			//fmt.Println("Round", round)
 		}
 
 		round++
-
 		if round > 10005 {
 			break
 		}
-
 	}
-
-}
-
-func nextStep(s []*Starlight) {
 }
 
 func printCanvas(s []*Starlight) {

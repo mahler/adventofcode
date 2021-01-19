@@ -29,8 +29,6 @@ func main() {
 	fmt.Println("2018")
 	fmt.Println("DAY10, Part 1: The Stars Align")
 
-	//canvas := CanvasSize{0, 0, 0, 0}
-
 	stars := []*Starlight{}
 	rxStar := regexp.MustCompile(`position=<\s*(-?\d+),\s*(-?\d+)> velocity=<\s*(-?\d+),\s*(-?\d+)>`)
 

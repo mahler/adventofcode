@@ -22,7 +22,7 @@ type NPmap [][]string
 
 func main() {
 
-	data, err := ioutil.ReadFile("puzzle.tst")
+	data, err := ioutil.ReadFile("puzzle.txt")
 	if err != nil {
 		log.Fatal("File reading error", err)
 		return
@@ -43,13 +43,31 @@ func main() {
 		northpolemap = append(northpolemap, mapRow)
 	}
 
-	fmt.Println("Round 0 /")
-	printMap(northpolemap)
+	//fmt.Println("Round 0 /")
+	//printMap(northpolemap)
 	for round := 1; round <= 10; round++ {
 		runRound(&northpolemap)
-		fmt.Println("Round", round, "/")
-		printMap(northpolemap)
+		//	fmt.Println("Round", round, "/")
+		//	printMap(northpolemap)
 	}
+
+	fmt.Println()
+	fmt.Println("2018")
+	fmt.Println("Part 1: Settlers of The North Pole")
+	c := mapCount(northpolemap)
+
+	fmt.Println("Trees:", c.tree, "Lumberyards:", c.lumber)
+	fmt.Println("Value:", c.tree*c.lumber)
+	// ----------------------
+	fmt.Println()
+	fmt.Println("Part 2/ 1000000000 rounds - Painfully slow.")
+	for round := 11; round <= 1000000000; round++ {
+		runRound(&northpolemap)
+	}
+
+	printMap(northpolemap)
+	fmt.Println("Trees:", c.tree, "Lumberyards:", c.lumber)
+	fmt.Println("Value:", c.tree*c.lumber)
 
 }
 
@@ -121,6 +139,23 @@ func mapPoint(myMap NPmap, myRow, myCol int) pointCount {
 					}
 
 				}
+			}
+		}
+	}
+	return p
+}
+
+func mapCount(myMap NPmap) pointCount {
+	var p pointCount
+	for row := 0; row < len(myMap); row++ {
+		for col := 0; col < len(myMap[row]); col++ {
+			switch myMap[row][col] {
+			case "#":
+				p.lumber++
+			case "|":
+				p.tree++
+			case ".":
+				p.ground++
 			}
 		}
 	}

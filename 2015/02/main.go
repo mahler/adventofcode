@@ -47,6 +47,7 @@ func main() {
 
 	fmt.Println("How many total square feet of wrapping paper should they order?")
 	fmt.Println(totalWrappingPaper)
+	// ------------ PART 2 ------------------------
 
 	fmt.Println()
 	fmt.Println("Part 2: Ribbon Calc")
@@ -60,9 +61,7 @@ func main() {
 }
 
 func (gift xmasPackage) size() int {
-
 	return (2 * gift.length * gift.width) + (2 * gift.width * gift.height) + (2 * gift.height * gift.length)
-
 }
 
 func (gift xmasPackage) slack() int {

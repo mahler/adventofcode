@@ -25,12 +25,11 @@ func main() {
 
 	}
 	fmt.Println("Number of nice strings:", niceStrings)
-	// debugTest("dvszwmarrgswjxmb")
+	// ------------ PART 2 ------------------------
 
 	fmt.Println()
-	fmt.Println("Part 2:")
+	fmt.Println("Part 2/")
 
-	//	debugPart2("qjhvhtzxzqqjkmpb")
 	niceStrings = 0
 	for _, textString := range fileLines {
 		if doubleLetterPairExist(textString) && letterWithLetterBetween(textString) {
@@ -39,38 +38,6 @@ func main() {
 	}
 	fmt.Println("Number of nice strings (p2 rules):", niceStrings)
 
-}
-
-func debugTest(tString string) {
-	if hasVovels(tString, 3) {
-		fmt.Println(tString, "PASSED 3vovel test")
-	} else {
-		fmt.Println(tString, "FAILED 3vovel test")
-	}
-	if doesContainStrings(tString) {
-		fmt.Println(tString, "FAILED contain evil letters")
-	} else {
-		fmt.Println("PASSED evil letter test")
-
-	}
-	if hasDoubleletter(tString) {
-		fmt.Println(tString, "PASSED does have double letters")
-	} else {
-		fmt.Println(tString, "FAILED does not have double letter")
-	}
-}
-
-func debugPart2(tString string) {
-	if doubleLetterPairExist(tString) {
-		fmt.Println(tString, ": PASS - doubleletter pair exist")
-	} else {
-		fmt.Println(tString, ": FAIL - no doubletter pair")
-	}
-	if letterWithLetterBetween(tString) {
-		fmt.Println(tString, ": PASS - leter with letter")
-	} else {
-		fmt.Println(tString, ": FAIL - letter with letter")
-	}
 }
 
 // It contains at least one letter that appears twice in a row, like xx, abcdde (dd), or aabbccdd (aa, bb, cc, or dd).

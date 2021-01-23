@@ -45,6 +45,7 @@ func main() {
 	fmt.Println("How many houses receive at least one present?")
 	// Adding one for starting location.
 	fmt.Println(len(locations) + 1)
+	// ------------ PART 2 ------------------------
 
 	fmt.Println()
 	fmt.Print("Part 2: RoboSanta asssist")
@@ -94,7 +95,6 @@ func main() {
 		} else {
 			newLocations[virtualAddress] = 1
 			fmt.Println("NewRobo")
-
 		}
 	}
 	fmt.Println("How many houses receive at least one present?")

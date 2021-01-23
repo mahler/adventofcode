@@ -23,10 +23,11 @@ func main() {
 			floor++
 		case ")":
 			floor--
-
 		}
 	}
 	fmt.Println("To what floor do the instructions take Santa?", floor)
+	// ------------ PART 2 ------------------------
+
 	fmt.Println()
 	fmt.Println("2019 - Day 01 Part 2")
 	// reset floor for part 2
@@ -50,5 +51,4 @@ func main() {
 	// String has 0-base, so add one to get the correct character number.
 	firstTimeBasement++
 	fmt.Println("What is the position of the character that causes Santa to first enter the basement?", firstTimeBasement)
-
 }

@@ -26,6 +26,7 @@ func main() {
 		counter++
 	}
 	fmt.Println("lowest positive number - zero5:", counter)
+	// ------------ PART 2 ------------------------
 
 	fmt.Println()
 	fmt.Print("Day 04, Part 2:")
@@ -43,5 +44,4 @@ func main() {
 		counter++
 	}
 	fmt.Println("lowest positive number - zero6:", counter)
-
 }

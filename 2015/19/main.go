@@ -42,8 +42,8 @@ func main() {
 	fmt.Println("How many distinct molecules can be created after all the different ways")
 	fmt.Println("you can do one replacement on the medicine molecule?")
 	fmt.Println(len(molecules))
-	// ------
 
+	// ------------ PART 2 ------------------------
 	fmt.Println()
 	fmt.Println("Part 2")
 

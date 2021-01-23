@@ -45,8 +45,15 @@ func main() {
 			used[filled]++
 		}
 	}
+	fmt.Println("how many different combinations of containers can exactly fit all 150 liters of eggnog?")
+	fmt.Println(validCombination)
 
-	// Part 2:
+	// ------------ PART 2 ------------------------
+	fmt.Println()
+	fmt.Println("Part 2/")
+	fmt.Println("How many different ways* can you fill that number of containers")
+	fmt.Println("and still hold exactly 150 litres?")
+
 	validMin := 0
 	for _, v := range used {
 		if v > 0 {
@@ -55,11 +62,6 @@ func main() {
 		}
 	}
 
-	fmt.Println("how many different combinations of containers can exactly fit all 150 liters of eggnog?")
-	fmt.Println(validCombination)
-	fmt.Println()
-	fmt.Println("How many different ways* can you fill that number of containers")
-	fmt.Println("and still hold exactly 150 litres?")
 	fmt.Println(validMin)
 
 }

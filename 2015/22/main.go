@@ -50,7 +50,8 @@ func main() {
 	}
 	fmt.Println("What is the least amount of mana you can spend and still win the fight?")
 	fmt.Println(min)
-	// Part 2 -----------------
+
+	// ------------ PART 2 ------------------------
 	fmt.Println()
 	fmt.Println("Part 2")
 	part2 = true

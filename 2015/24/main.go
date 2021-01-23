@@ -40,6 +40,7 @@ func main() {
 	qe3 := findLowest(weights, 3)
 	fmt.Println(qe3)
 
+	// ------------ PART 2 ------------------------
 	fmt.Println()
 	fmt.Println("Part 2")
 	fmt.Println("Now, what is the quantum entanglement of the first 4 group of ackages in the ideal configuration?")

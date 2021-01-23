@@ -83,6 +83,8 @@ func main() {
 		}
 		pc++
 	}
+
+	// ------------ PART 2 ------------------------
 	fmt.Println()
 	fmt.Println("Part 2:")
 	fmt.Println("what is the value in register b after the program is finished executing if register a starts as 1 instead?")

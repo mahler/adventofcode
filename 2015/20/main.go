@@ -25,7 +25,8 @@ func main() {
 	fmt.Println("What is the lowest house number of the house to get at least")
 	fmt.Println("as many presents as the number in your puzzle input?")
 	fmt.Println(houseNumber)
-	// ------------------------------
+
+	// ------------ PART 2 ------------------------
 	fmt.Println()
 	fmt.Println("Part 2")
 	p2presents := make([]int, puzzle+1)

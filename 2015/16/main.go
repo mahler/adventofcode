@@ -71,8 +71,7 @@ func main() {
 			fmt.Println("Ant Sue", numberAunt+1)
 		}
 	}
-	// --------------------------------
-	// Part 2
+	// ------------ PART 2 ------------------------
 	fmt.Println()
 	fmt.Println("Part 2: retroencabulator")
 	for numberAunt, thisAunt := range aunts {

@@ -49,7 +49,7 @@ func main() {
 		item{name: "None", cost: 0, damage: 0, armor: 0},
 	}
 
-	// Part 1 --------------
+	// ------------ PART 1 ------------------------
 	fmt.Println()
 	fmt.Println("2015")
 	fmt.Println("Day 21, part 1: RPG Simulator 20XX")
@@ -74,7 +74,7 @@ func main() {
 
 		}
 	}
-	//	fmt.Println(len(config))
+
 	boss := player{hitpoint: 100, damage: 8, armor: 2}
 
 	// leastCost init with some high random number, as the assumed result cost is well below.
@@ -99,20 +99,16 @@ func main() {
 				maxCost = player.configCost
 			}
 		}
-
-		//fmt.Println("config: armour/", player.armor, "damage/", player.damage, "cost/", player.configCost)
-		//break
-
 	}
 
 	fmt.Println("What is the least amount of gold you can spend and still win the fight?")
 	fmt.Println(leastCost)
-	// -------------------------
+
+	// ------------ PART 2 ------------------------
 	fmt.Println()
 	fmt.Println("Part 2")
 	fmt.Println("What is the most amount of gold you can spend and still lose the fight?")
 	fmt.Println(maxCost)
-
 }
 
 func playerWinsGame(p1 player, boss player) bool {

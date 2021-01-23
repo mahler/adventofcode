@@ -73,8 +73,6 @@ func main() {
 	fmt.Println("Day 18, part 1: Like a GIF For Your Yard")
 	fmt.Println(countLightsOn(field))
 
-	// -------------------------------------
-	//	printGrid(p2field)
 	p2field[0][0] = true
 	p2field[99][0] = true
 	p2field[0][99] = true
@@ -122,6 +120,8 @@ func main() {
 		p2field[0][99] = true
 		p2field[99][99] = true
 	}
+
+	// ------------ PART 2 ------------------------
 	fmt.Println()
 	fmt.Println("Part 2")
 	fmt.Println("How many lights are on after 100 steps with 4 cornor lights always on?")

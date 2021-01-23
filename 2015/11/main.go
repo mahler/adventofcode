@@ -15,7 +15,8 @@ func main() {
 			break
 		}
 	}
-	// ---------------------------------------
+
+	// ------------ PART 2 ------------------------
 	fmt.Println("Part 2")
 	for {
 		input = nextPassword(input)

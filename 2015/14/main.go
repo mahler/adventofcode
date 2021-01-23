@@ -58,11 +58,10 @@ func main() {
 	fmt.Println("Day 14, part 1: Reindeer Olympics")
 	fmt.Println(maxName, "won with a distance of", maxDistance)
 
-	// Part 2 -----------------------------------
+	// ------------ PART 2 ------------------------
 	fmt.Println()
 	fmt.Println("Part 2")
 	rDeer, points := runReindeerRace(santasReindeer, 2503)
-
 	fmt.Println("Winner is", rDeer.name, "with total points of", points)
 }
 

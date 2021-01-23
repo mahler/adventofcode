@@ -16,7 +16,6 @@ func main() {
 
 	}
 	lines := strings.Split(strings.TrimSpace(string(fileContent)), "\n")
-	//fmt.Println("Guest list:", len(lines))
 
 	// Read guest preferences into rule datastructure
 	rxGuestPref := regexp.MustCompile(`^(\w+) would (\w+) (\d+) happiness units by sitting next to (\w+)`)
@@ -42,7 +41,6 @@ func main() {
 		if happyDir == "lose" {
 			happiness = 0 - happiness
 		}
-		//fmt.Println("gname:", guestname, "nextTo:", nextTo, "letter:", letter, "happiness:", happiness)
 
 		_, exists := guestList[guestname]
 		if !exists {
@@ -51,7 +49,7 @@ func main() {
 		guestList[guestname][nextTo] = happiness
 		guestKeys[letter] = true
 	}
-	// Part 1 ------------------------------------------
+	// ------------ PART 1 ------------------------
 	fmt.Println()
 	fmt.Println("2015")
 	fmt.Println("Day 13 part 1: Knights of the Dinner Table")
@@ -69,8 +67,6 @@ func main() {
 		combiList = append(combiList, cGuest)
 	})
 
-	//fmt.Println("Permutations:", len(combiList))
-
 	maxHappiness := 0
 	// Loop through guest permutations (combilist)
 	for _, guestRuneCombi := range combiList {
@@ -87,12 +83,10 @@ func main() {
 				nextGuest = letter2guest[fields[gPos+1]]
 			}
 
-			//fmt.Println(gPos, ": Guest", thisGuest, " - ", nextGuest)
 			// Collect happiness from both sidess
 			happiness += guestList[thisGuest][nextGuest]
 			happiness += guestList[nextGuest][thisGuest]
 		}
-		//fmt.Println("Happiness for combo:", happiness)
 
 		if happiness > maxHappiness {
 			maxHappiness = happiness
@@ -103,7 +97,7 @@ func main() {
 	fmt.Println("the optimal seating arrangement of the actual guest list?")
 	fmt.Println(maxHappiness)
 
-	// Part 2 -----------------------------
+	// ------------ PART 2 ------------------------
 	fmt.Println()
 	fmt.Println("Part 2")
 	// Insert "Me" in guest list
@@ -115,15 +109,12 @@ func main() {
 	permGuests = append(permGuests, rune('X'))
 
 	// Part 2 setup down, let's run the planning again...
-
 	p2combiList := []string{}
 	Perm([]rune(permGuests), func(a []rune) {
 		cGuest := fmt.Sprintf("%c", a)
 
 		p2combiList = append(p2combiList, cGuest)
 	})
-
-	//fmt.Println("P2Permutations:", len(p2combiList))
 
 	p2maxHappiness := 0
 	// Loop through guest permutations (combilist)
@@ -151,7 +142,6 @@ func main() {
 	fmt.Println("What is the total change in happiness for")
 	fmt.Println("the optimal seating with me at table?")
 	fmt.Println(p2maxHappiness)
-
 }
 
 // Perm generate all possible permutations of the rune slice input

@@ -26,6 +26,7 @@ func main() {
 	simulate(lines, wires)
 	fmt.Println(wires["a"])
 
+	// ------------ PART 2 ------------------------
 	fmt.Println()
 	fmt.Println("Part Two")
 	// init task

@@ -42,7 +42,7 @@ func main() {
 		ingredients[i] = ingredient{name, capacity, durability, flavor, texture, calories}
 	}
 
-	// Part 1
+	// ------------ PART 1 ------------------------
 	fmt.Println()
 	fmt.Println("2015")
 	fmt.Println("Day 15: Science for Hungry People")
@@ -90,7 +90,7 @@ func main() {
 	}
 	fmt.Println("what is the total score of the highest-scoring cookie?")
 	fmt.Println(highestScore)
-	// -------------------------
+	// ------------ PART 2 ------------------------
 	fmt.Println("Part 2: what is the total score of the highest-scoring")
 	fmt.Println("cookie you can make with a calorie total of 500?")
 	fmt.Println(highestCalorie)

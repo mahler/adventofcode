@@ -31,6 +31,7 @@ func main() {
 	fmt.Println("Day 8: Matchsticks")
 	fmt.Println("Total for the entire file:", sum)
 
+	// ------------ PART 2 ------------------------
 	fmt.Println()
 	fmt.Println("Part 2")
 	sum = 0

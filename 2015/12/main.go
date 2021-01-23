@@ -20,6 +20,7 @@ func main() {
 	fmt.Println("What is the sum of all numbers in the document?")
 	fmt.Println(numberCount)
 
+	// ------------ PART 2 ------------------------
 	fmt.Println()
 	fmt.Println("Part 2:")
 

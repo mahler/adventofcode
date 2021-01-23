@@ -22,7 +22,7 @@ func main() {
 	fmt.Println("Look&Say 40 rounds:")
 	fmt.Println(len(result))
 
-	//------------ Part 2
+	// ------------ PART 2 ------------------------
 	fmt.Println("Part 2 - 50 rounds")
 
 	byteResult := []byte(input)

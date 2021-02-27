@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
 	"log"
 	"strings"
 )
@@ -16,7 +15,7 @@ func main() {
 	fmt.Println()
 	fmt.Println("2016")
 	fmt.Println("Day 7: Internet Protocol Version 7")
-	fileContent, err := ioutil.ReadFile("puzzle.txt")
+	fileContent, err := os.ReadFIle("puzzle.txt")
 
 	ipCounter := 0
 

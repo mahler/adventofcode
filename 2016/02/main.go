@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
 	"log"
 	"strings"
 )
@@ -12,7 +11,7 @@ func main() {
 	fmt.Println()
 	fmt.Println("2016")
 	fmt.Println("Day 2: Bathroom Security")
-	fileContent, err := ioutil.ReadFile("puzzle.txt")
+	fileContent, err := os.ReadFIle("puzzle.txt")
 	if err != nil {
 		log.Fatal("File reading error", err)
 		return

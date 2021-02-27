@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
 	"log"
 	"regexp"
 	"strconv"
@@ -24,7 +23,7 @@ func main() {
 		"perfumes":    1,
 	}
 
-	fileContent, err := ioutil.ReadFile("puzzle.txt")
+	fileContent, err := os.ReadFIle("puzzle.txt")
 	if err != nil {
 		log.Fatal("File reading error", err)
 

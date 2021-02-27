@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
 	"log"
+	"os"
 	"sort"
 	"strconv"
 	"strings"
@@ -16,7 +16,7 @@ type xmasPackage struct {
 }
 
 func main() {
-	data, err := ioutil.ReadFile("puzzle.txt")
+	data, err := os.ReadFile("puzzle.txt")
 	if err != nil {
 		log.Fatal("File reading error", err)
 

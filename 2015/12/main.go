@@ -3,7 +3,6 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"reflect"
 )
 
@@ -12,7 +11,7 @@ func main() {
 	fmt.Println("2015")
 	fmt.Println("Day 12, part 1: JSAbacusFramework.io")
 
-	input, _ := ioutil.ReadFile("puzzle.txt")
+	input, _ := os.ReadFIle("puzzle.txt")
 	var data interface{}
 	json.Unmarshal(input, &data)
 

@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
 	"log"
 	"math"
 	"strconv"
@@ -20,7 +19,7 @@ type wayPoint struct {
 }
 
 func main() {
-	data, err := ioutil.ReadFile("input.txt")
+	data, err := os.ReadFIle("input.txt")
 	if err != nil {
 		log.Fatal("File reading error", err)
 	}

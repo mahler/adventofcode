@@ -2,13 +2,12 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
 	"strconv"
 	"strings"
 )
 
 func main() {
-	data, err := ioutil.ReadFile("game.console")
+	data, err := os.ReadFIle("game.console")
 	if err != nil {
 		fmt.Println("File reading error", err)
 		return

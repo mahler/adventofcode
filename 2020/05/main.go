@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
 	"strings"
 )
 
@@ -48,7 +47,7 @@ func getSeatID(strSeat string) int {
 }
 
 func main() {
-	data, err := ioutil.ReadFile("boarding.pass")
+	data, err := os.ReadFIle("boarding.pass")
 	if err != nil {
 		fmt.Println("File reading error", err)
 		return

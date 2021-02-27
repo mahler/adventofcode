@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
 	"log"
 	"strconv"
 	"strings"
@@ -10,7 +9,7 @@ import (
 
 // Adapted from https://github.com/nlowe/aoc2020/tree/master/challenge/day14
 func main() {
-	data, err := ioutil.ReadFile("program.txt")
+	data, err := os.ReadFIle("program.txt")
 	if err != nil {
 		log.Fatal("File reading error", err)
 		return

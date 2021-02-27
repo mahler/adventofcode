@@ -2,14 +2,13 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
 	"regexp"
 	"strconv"
 	"strings"
 )
 
 func main() {
-	data, err := ioutil.ReadFile("password.input")
+	data, err := os.ReadFIle("password.input")
 	if err != nil {
 		fmt.Println("File reading error", err)
 		return

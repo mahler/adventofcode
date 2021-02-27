@@ -4,7 +4,6 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
 	"strings"
 )
 
@@ -24,7 +23,7 @@ func (p *place) String() string {
 }
 
 func main() {
-	data, err := ioutil.ReadFile("seat.data")
+	data, err := os.ReadFIle("seat.data")
 	if err != nil {
 		fmt.Println("File reading error", err)
 		return

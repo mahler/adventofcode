@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
 	"strconv"
 	"strings"
 )
@@ -11,7 +10,7 @@ func main() {
 	fmt.Println()
 	fmt.Println("DAY13, Part 1: Shuttle Search")
 
-	data, err := ioutil.ReadFile("shuttle.schedule")
+	data, err := os.ReadFIle("shuttle.schedule")
 	if err != nil {
 		fmt.Println("File reading error", err)
 		return

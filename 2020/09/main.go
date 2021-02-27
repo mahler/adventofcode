@@ -2,13 +2,12 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
 	"strconv"
 	"strings"
 )
 
 func main() {
-	data, err := ioutil.ReadFile("data.xmas")
+	data, err := os.ReadFIle("data.xmas")
 	if err != nil {
 		fmt.Println("File reading error", err)
 		return

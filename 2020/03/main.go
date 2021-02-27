@@ -2,13 +2,12 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
 	"strings"
 )
 
 func main() {
 
-	data, err := ioutil.ReadFile("map.txt")
+	data, err := os.ReadFIle("map.txt")
 	if err != nil {
 		fmt.Println("File reading error", err)
 		return

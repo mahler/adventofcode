@@ -2,13 +2,12 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
 	"strconv"
 	"strings"
 )
 
 func main() {
-	data, err := ioutil.ReadFile("puzzle.input")
+	data, err := os.ReadFIle("puzzle.input")
 	if err != nil {
 		fmt.Println("File reading error", err)
 		return

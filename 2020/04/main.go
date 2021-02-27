@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
 	"strconv"
 	"strings"
 )
@@ -11,7 +10,7 @@ func main() {
 
 	type passportMapType map[string]string
 
-	data, err := ioutil.ReadFile("passport.data")
+	data, err := os.ReadFIle("passport.data")
 	if err != nil {
 		fmt.Println("File reading error", err)
 		return

@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
 	"sort"
 	"strconv"
 	"strings"
@@ -11,7 +10,7 @@ import (
 var cache map[int]int
 
 func main() {
-	data, err := ioutil.ReadFile("jolt.data")
+	data, err := os.ReadFIle("jolt.data")
 	if err != nil {
 		fmt.Println("File reading error", err)
 		return

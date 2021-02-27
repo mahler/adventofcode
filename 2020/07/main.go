@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
 	"strconv"
 	"strings"
 )
@@ -37,7 +36,7 @@ func insideBagCount(color string, bagInBagMap map[string]map[string]int) int {
 }
 
 func main() {
-	data, err := ioutil.ReadFile("baggage.txt")
+	data, err := os.ReadFIle("baggage.txt")
 	if err != nil {
 		fmt.Println("File reading error", err)
 		return

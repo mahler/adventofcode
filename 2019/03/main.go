@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"image"
-	"io/ioutil"
 	"log"
 	"math"
 	"strconv"
@@ -11,7 +10,7 @@ import (
 )
 
 func main() {
-	data, err := ioutil.ReadFile("puzzle.txt")
+	data, err := os.ReadFIle("puzzle.txt")
 	if err != nil {
 		log.Fatal("File reading error", err)
 	}

@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
 	"log"
 	"strconv"
 	"strings"
@@ -13,7 +12,7 @@ type crabCards struct {
 }
 
 func main() {
-	data, err := ioutil.ReadFile("puzzle.txt")
+	data, err := os.ReadFIle("puzzle.txt")
 	if err != nil {
 		log.Fatal("File reading error", err)
 

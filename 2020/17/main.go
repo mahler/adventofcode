@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
 	"log"
 	"strings"
 )
@@ -17,7 +16,7 @@ func (p point) String() string {
 
 func main() {
 	activePoints := make(map[point]bool, 40)
-	data, err := ioutil.ReadFile("data.set")
+	data, err := os.ReadFIle("data.set")
 	if err != nil {
 		log.Fatal("File reading error", err)
 		return

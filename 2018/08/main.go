@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
 	"strconv"
 	"strings"
 )
@@ -13,7 +12,7 @@ type node struct {
 }
 
 func main() {
-	fileContent, _ := ioutil.ReadFile("puzzle.txt")
+	fileContent, _ := os.ReadFIle("puzzle.txt")
 	split := strings.Split(string(fileContent), " ")
 	numbers := make([]int, len(split))
 	for i, s := range split {

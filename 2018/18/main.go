@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
 	"log"
 	"strings"
 )
@@ -22,7 +21,7 @@ type NPmap [][]string
 
 func main() {
 
-	data, err := ioutil.ReadFile("puzzle.txt")
+	data, err := os.ReadFIle("puzzle.txt")
 	if err != nil {
 		log.Fatal("File reading error", err)
 		return

@@ -3,7 +3,6 @@ package main
 import (
 	"errors"
 	"fmt"
-	"io/ioutil"
 	"log"
 	"sort"
 	"strconv"
@@ -51,7 +50,7 @@ func main() {
 	fmt.Println()
 	fmt.Println("2018")
 	fmt.Println("Day 6: Chronal Coordinates")
-	fileContent, err := ioutil.ReadFile("puzzle.txt")
+	fileContent, err := os.ReadFIle("puzzle.txt")
 	if err != nil {
 		log.Fatal("File reading error", err)
 		return

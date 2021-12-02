@@ -25,12 +25,8 @@ func main() {
 	depth, distance := 0, 0
 	for _, fileLine := range fileLines {
 		fields := regexpData.FindStringSubmatch(fileLine)
-
-		// fmt.Println(fields)
-
 		direction := fields[1]
 		length, _ := strconv.Atoi(fields[2])
-		//fmt.Println(direction, "-", length)
 
 		switch direction {
 		case "up":
@@ -40,6 +36,35 @@ func main() {
 			depth += length
 		case "forward":
 			distance += length
+			break
+		}
+	}
+	fmt.Println("Distance:", distance)
+	fmt.Println("Depth:", depth)
+	fmt.Println("Answer:", distance*depth)
+
+	// Part 2
+	fmt.Println()
+	fmt.Println("Part 2")
+
+	// reset start pos
+	depth, distance = 0, 0
+	aim := 0
+	for _, fileLine := range fileLines {
+		fields := regexpData.FindStringSubmatch(fileLine)
+
+		direction := fields[1]
+		length, _ := strconv.Atoi(fields[2])
+
+		switch direction {
+		case "up":
+			aim -= length
+			break
+		case "down":
+			aim += length
+		case "forward":
+			distance += length
+			depth += (length * aim)
 			break
 		}
 	}

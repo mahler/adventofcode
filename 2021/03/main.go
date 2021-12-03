@@ -20,12 +20,11 @@ func main() {
 	fileContent := strings.Split(string(data), "\n")
 	fmt.Println()
 	fmt.Println("DAY03, Part 1: Binary Diagnostic")
-	fmt.Println("Total puzzle input: ", len(fileContent))
 
 	for _, diagnostic := range fileContent {
-		fmt.Println(diagnostic)
+		//fmt.Println(diagnostic)
 		for pos, binData := range diagnostic {
-			fmt.Println(pos, "-", string(binData))
+			// fmt.Println(pos, "-", string(binData))
 			mapKey := strconv.Itoa(pos) + "-" + string(binData)
 			if _, ok := diagnosticMap[mapKey]; ok {
 				diagnosticMap[mapKey]++
@@ -60,9 +59,97 @@ func main() {
 
 	powerConsumption := intGamma * intEpsilon
 
-	fmt.Println("power consumption:", powerConsumption)
+	fmt.Println("Power consumption:", powerConsumption)
 
 	// ------------------------------------------------------------------------
 	fmt.Println()
 	fmt.Println("Part 2")
+
+	oxygenRows := make([]string, len(fileContent))
+	copy(oxygenRows, fileContent)
+
+	for pos := 0; pos < maxPos; pos++ {
+		// Count ones and zeros
+		ones, zeros := 0, 0
+		for _, val := range oxygenRows {
+			if val[pos] == '1' {
+				ones++
+			} else if val[pos] == '0' {
+				zeros++
+			}
+		}
+
+		bitSet := '0'
+		// If 0 and 1 are equally common, keep values with a 1 in the position being considered.
+		if ones >= zeros {
+			bitSet = '1'
+		}
+
+		for key, val := range oxygenRows {
+			if val[pos] != byte(bitSet) {
+				oxygenRows[key] = "--------------------------------"
+			}
+		}
+	}
+	oxygenGeneratorRating := ""
+	for _, val := range oxygenRows {
+		if val[0] != '-' {
+			oxygenGeneratorRating = val
+			break
+		}
+	}
+
+	fmt.Println("oxygen generator rating (bin):", oxygenGeneratorRating)
+	intoxygenGeneratorRating, _ := strconv.ParseInt(string(oxygenGeneratorRating), 2, 64)
+	fmt.Println("oxygen generator rating (dec):", intoxygenGeneratorRating)
+	fmt.Println()
+
+	// Moving on to CO2 scrubber..
+	co2Rows := make([]string, len(fileContent))
+	copy(co2Rows, fileContent)
+
+	zapped := 0
+	for pos := 0; pos < maxPos; pos++ {
+		// Count ones and zeros
+		ones, zeros := 0, 0
+		for _, val := range co2Rows {
+			if val[pos] == '1' {
+				ones++
+			} else if val[pos] == '0' {
+				zeros++
+			}
+		}
+
+		bitSet := '0'
+		// If 0 and 1 are equally common, keep values with a 0 in the position being considered.
+		if ones < zeros {
+			bitSet = '1'
+		}
+
+		for key, val := range co2Rows {
+			if val[pos] != '-' && val[pos] != byte(bitSet) {
+				co2Rows[key] = "--------------------------------"
+				zapped++
+			}
+		}
+		// Break if only one item left.
+		if zapped > len(co2Rows)-2 {
+			break
+		}
+	}
+
+	co2scrubbing := ""
+	for _, val := range co2Rows {
+		if val[0] != '-' {
+			co2scrubbing = val
+			break
+		}
+	}
+	fmt.Println("CO2 scrubbing (bin):", co2scrubbing)
+	intco2scrubbing, _ := strconv.ParseInt(co2scrubbing, 2, 64)
+	fmt.Println("CO2 scrubbing (dec):", intco2scrubbing)
+	fmt.Println()
+
+	fmt.Println("What is the life support rating of the submarine?")
+	fmt.Println(intoxygenGeneratorRating * intco2scrubbing)
 }

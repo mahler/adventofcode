@@ -3,12 +3,13 @@ package main
 import (
 	"fmt"
 	"log"
+	"os"
 	"strings"
 	"unicode"
 )
 
 func main() {
-	fileContent, err := os.ReadFIle("puzzle.txt")
+	fileContent, err := os.ReadFile("puzzle.txt")
 	if err != nil {
 		log.Fatal("File reading error", err)
 		return

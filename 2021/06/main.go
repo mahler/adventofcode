@@ -25,28 +25,50 @@ func main() {
 		lanternfish = append(lanternfish, iFish)
 	}
 
-	//fmt.Print(laternfish)
+	fishCount := make(map[int]int64)
+	fishCount[0] = 0
+	fishCount[1] = 0
+	fishCount[2] = 0
+	fishCount[3] = 0
+	fishCount[4] = 0
+	fishCount[5] = 0
+	fishCount[6] = 0
+	fishCount[7] = 0
+	fishCount[8] = 0
 
-	rounds := 80
+	for i := 0; i < len(lanternfish); i++ {
+		//	fmt.Println("found fish:", lanternfish[i])
+		fishCount[lanternfish[i]]++
+	}
+
+	fmt.Println("Initial state:", fishCount)
+
+	// Set rounds to 80 for part 1
+	// set rounds to 256 for part 2
+	rounds := 256
 
 	for round := 0; round < rounds; round++ {
-		fmt.Println("Round", round+1)
-		newFish := []int{}
+		tmpCount := make(map[int]int64)
+		tmpCount[0] = fishCount[1]
+		tmpCount[1] = fishCount[2]
+		tmpCount[2] = fishCount[3]
+		tmpCount[3] = fishCount[4]
+		tmpCount[4] = fishCount[5]
+		tmpCount[5] = fishCount[6]
+		tmpCount[6] = fishCount[7]
+		tmpCount[7] = fishCount[8]
+		tmpCount[8] = fishCount[0]
+		tmpCount[6] += fishCount[0]
+		fishCount = tmpCount
+		//fmt.Println("After Round", round+1, ":", fishCount)
+	}
 
-		for numberFish := 0; numberFish < len(lanternfish); numberFish++ {
-			if lanternfish[numberFish] > 0 {
-				lanternfish[numberFish]--
-			} else {
-				// new fish
-				newFish = append(newFish, 8)
-
-				// reset timer for current fish
-				lanternfish[numberFish] = 6
-			}
-		}
-		lanternfish = append(lanternfish, newFish...)
+	// --- Count number of fish
+	numberOfFish := int64(0)
+	for _, n := range fishCount {
+		numberOfFish += n
 	}
 
 	fmt.Println("Rounds run:", rounds)
-	fmt.Println("Number of fish:", len(lanternfish))
+	fmt.Println("Number of fish:", numberOfFish)
 }

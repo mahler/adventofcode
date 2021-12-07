@@ -60,6 +60,28 @@ func main() {
 	fmt.Println("Position:", superPos)
 	fmt.Println("Fuel usage", fuelUsage)
 
+	// Part 2 ------
+
+	// reset variables
+	fuelUsage = 99999999
+	superPos = 0
+
+	for pos := minPos; pos < maxPos+1; pos++ {
+		crabFuel := 0
+		for _, crabSubPos := range intCrabSubmarines {
+			crabFuel += p2diff(crabSubPos, pos)
+		}
+
+		if crabFuel < fuelUsage {
+			superPos = pos
+			fuelUsage = crabFuel
+		}
+	}
+
+	fmt.Println("Part 02/")
+	fmt.Println("Position:", superPos)
+	fmt.Println("Fuel usage", fuelUsage)
+
 }
 
 func diff(a, b int) int {
@@ -67,4 +89,17 @@ func diff(a, b int) int {
 		return b - a
 	}
 	return a - b
+}
+
+func p2diff(a, b int) int {
+	delta := diff(a, b)
+
+	if delta > 1 {
+		fuelCost := 0
+		for fuelSteps := 1; fuelSteps <= delta; fuelSteps++ {
+			fuelCost += fuelSteps
+		}
+		delta = fuelCost
+	}
+	return delta
 }

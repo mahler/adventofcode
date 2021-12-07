@@ -78,6 +78,7 @@ func main() {
 		}
 	}
 
+	fmt.Println()
 	fmt.Println("Part 02/")
 	fmt.Println("Position:", superPos)
 	fmt.Println("Fuel usage", fuelUsage)

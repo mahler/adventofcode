@@ -1,0 +1,10 @@
+ab | ab
+gcdfa | gcdfa
+fbcad | fbcad
+eafb | eafb
+cdfbe | cdfbe
+cdfgeb | cdfgeb
+dab | dab
+acedgfb | acedgfb 
+cefabd | cefabd
+cagedb | cagedb

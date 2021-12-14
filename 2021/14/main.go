@@ -87,24 +87,13 @@ func polymerSteps(strTemplate string, mapPolymer map[string]string, steps int) i
 
 	minVal := math.MaxInt64
 	maxVal := 0
-	minChar := ""
-	maxChar := ""
-	for key, val := range freq {
-		if maxChar == "" {
-			maxChar = ""
-		}
-		if minChar == "" {
-			minChar = ""
-		}
-
+	for _, val := range freq {
 		if val < minVal {
 			minVal = val
-			minChar = key
 		}
 
 		if val > maxVal {
 			maxVal = val
-			maxChar = key
 		}
 	}
 

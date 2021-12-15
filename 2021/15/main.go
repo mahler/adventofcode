@@ -3,100 +3,140 @@ package main
 import (
 	"container/heap"
 	"fmt"
-	"log"
-	"math"
 	"os"
+	"strconv"
 	"strings"
 )
 
-type pos struct {
-	i, j int
-	val  uint16
+type xyPoint struct {
+	x int
+	y int
 }
-type minHeap []pos
+
+type queueItem struct {
+	pos       xyPoint
+	riskLevel int
+	index     int // The index of the item in the heap.
+}
+
+// A RiskQueue implements heap.Interface and holds queueItems.
+type RiskQueue []queueItem
+
+func (rq RiskQueue) Len() int { return len(rq) }
+func (rq RiskQueue) Less(i, j int) bool {
+	return rq[i].riskLevel < rq[j].riskLevel
+}
+func (rq RiskQueue) Swap(i, j int) {
+	rq[i], rq[j] = rq[j], rq[i]
+	rq[i].index = i
+	rq[j].index = j
+}
+func (rq *RiskQueue) Push(x interface{}) {
+	n := len(*rq)
+	item := x.(queueItem)
+	item.index = n
+	*rq = append(*rq, item)
+}
+func (rq *RiskQueue) Pop() interface{} {
+	old := *rq
+	n := len(old)
+	item := old[n-1]
+	item.index = -1
+	*rq = old[0 : n-1]
+	return item
+}
 
 func main() {
 	fmt.Println()
-	fileContent, err := os.ReadFile("puzzle.txt")
-	if err != nil {
-		log.Fatal("File reading error", err)
-		return
-	}
-
-	// Setup
+	fileContent, _ := os.ReadFile("puzzle.txt")
 	fileRows := string(fileContent)
 	fileLines := strings.Split(strings.TrimSpace(fileRows), "\n")
-	// Use Dijkstra's
-	m := len(fileLines)
-	n := len(fileLines[0])
-	var grid [100][100]byte
-	var seen [100][100]bool
-	var dist [100][100]uint16
-	for i, row := range fileLines {
-		for j := range row {
-			grid[i][j] = fileLines[i][j] - '0'
-			dist[i][j] = math.MaxUint16
+
+	// Setup
+	dx := [4]int{0, 0, -1, 1}
+	dy := [4]int{-1, 1, 0, 0}
+	grid := make(map[xyPoint]int)
+
+	maxX, maxY := 0, 0
+	for x, line := range fileLines {
+		var numberList []int
+		for _, word := range strings.Split(line, "") {
+			num, _ := strconv.Atoi(word)
+			numberList = append(numberList, num)
+		}
+		for y, v := range numberList {
+			grid[xyPoint{x, y}] = v
+			if x > maxX {
+				maxX = x
+			}
+			if y > maxY {
+				maxY = y
+			}
 		}
 	}
-	ok := func(i, j int) bool {
-		return i >= 0 && i < m && j >= 0 && j < n
+
+	start := xyPoint{0, 0}
+	target := xyPoint{maxX, maxY}
+	risk := func(pos xyPoint) int {
+		og := xyPoint{pos.x % (maxX + 1), pos.y % (maxY + 1)}
+		risk := grid[og] +
+			(pos.x)/(maxX+1) + (pos.y)/(maxY+1)
+		if risk > 9 {
+			return risk - 9
+		}
+		return risk
 	}
 
-	// Keep a min heap of distances
-	h := make(minHeap, 1, 10000)
-	h[0] = pos{0, 0, 0}
-
-	// While there are entries in the min heap (always true for this)
-	var lowRiskPath int
-	for {
-		x := heap.Pop(&h).(pos)
-		seen[x.i][x.j] = true
-		if x.i == m-1 && x.j == n-1 {
-			lowRiskPath = int(x.val)
-			break
-		}
-		for _, nei := range [][2]int{
-			{x.i + 1, x.j}, {x.i - 1, x.j}, {x.i, x.j - 1}, {x.i, x.j + 1},
-		} {
-			ii, jj := nei[0], nei[1]
-			if !ok(ii, jj) || seen[ii][jj] {
+	shortestAt := make(map[xyPoint]int)
+	rq := make(RiskQueue, 0)
+	heap.Init(&rq)
+	rq.Push(queueItem{pos: start, riskLevel: 0})
+	for rq.Len() > 0 {
+		head := heap.Pop(&rq).(queueItem)
+		for i := 0; i < 4; i++ {
+			next := xyPoint{head.pos.x + dx[i], head.pos.y + dy[i]}
+			if next.x > target.x || next.x < 0 || next.y > target.y || next.y < 0 {
 				continue
 			}
-			risk := x.val + uint16(grid[ii][jj])
-			if risk >= dist[ii][jj] {
+			nextRisk := head.riskLevel + risk(next)
+			if sAt, ok := shortestAt[next]; ok && sAt <= nextRisk {
 				continue
 			}
-			dist[ii][jj] = risk
-			heap.Push(&h, pos{ii, jj, risk})
+			shortestAt[next] = nextRisk
+			rq.Push(queueItem{pos: next, riskLevel: nextRisk})
+		}
+	}
+	fmt.Println()
+	fmt.Println("Day 2021-15:")
+	fmt.Println("Part 1/")
+	fmt.Println("what is the lowest total risk of any path from the top left to the bottom right?")
+	fmt.Println(shortestAt[target])
+
+	// --------------------------------------------------
+	// Same startposition as Part1, but target different.
+	p2target := xyPoint{(maxX+1)*5 - 1, (maxY+1)*5 - 1}
+	p2shortestAt := make(map[xyPoint]int)
+	p2rq := make(RiskQueue, 0)
+	heap.Init(&p2rq)
+	p2rq.Push(queueItem{pos: start, riskLevel: 0})
+	for p2rq.Len() > 0 {
+		head := heap.Pop(&p2rq).(queueItem)
+		for i := 0; i < 4; i++ {
+			next := xyPoint{head.pos.x + dx[i], head.pos.y + dy[i]}
+			if next.x > p2target.x || next.x < 0 || next.y > p2target.y || next.y < 0 {
+				continue
+			}
+			nextRisk := head.riskLevel + risk(next)
+			if sAt, ok := p2shortestAt[next]; ok && sAt <= nextRisk {
+				continue
+			}
+			p2shortestAt[next] = nextRisk
+			p2rq.Push(queueItem{pos: next, riskLevel: nextRisk})
 		}
 	}
 
-	fmt.Println("Low Risk path:", lowRiskPath)
-
-	// ---------------------------------------
-	fmt.Println(fileLines)
-}
-
-func (h minHeap) Len() int { return len(h) }
-func (h minHeap) Swap(i, j int) {
-	h[i], h[j] = h[j], h[i]
-}
-func (h minHeap) Less(i, j int) bool {
-	return h[i].val < h[j].val
-}
-func (h *minHeap) Push(x interface{}) {
-	*h = append(*h, x.(pos))
-}
-func (h *minHeap) Pop() interface{} {
-	n := len(*h)
-	it := (*h)[n-1]
-	*h = (*h)[:n-1]
-	return it
-}
-
-func max(a, b int) int {
-	if a > b {
-		return a
-	}
-	return b
+	fmt.Println()
+	fmt.Println("Part 2/")
+	fmt.Println("what is the lowest total risk of any path from the top left to the bottom right?")
+	fmt.Println(p2shortestAt[p2target])
 }

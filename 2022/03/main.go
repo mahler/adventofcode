@@ -29,9 +29,12 @@ func main() {
 			}
 		}
 	}
-	fmt.Println("Part 1:")
-	fmt.Println(total)
+
 	fmt.Println()
+	fmt.Println("Day 3: Rucksack Reorganization")
+	fmt.Println("What is the sum of the priorities of those item types?")
+	fmt.Println(total)
+
 	// Part 2
 	total = 0
 
@@ -53,7 +56,9 @@ func main() {
 		}
 	}
 
-	fmt.Println("Part2:")
+	fmt.Println()
+	fmt.Println("Part 2")
+	fmt.Println("What is the sum of the priorities of those item types?")
 	fmt.Println(total)
 }
 

@@ -75,7 +75,7 @@ Directory d has total size 24933642.
 As the outermost directory, / contains every file. Its total size is 48381165, the sum of the size of every file.
 To begin, find all of the directories with a total size of at most 100000, then calculate the sum of their total sizes. In the example above, these directories are a and e; the sum of their total sizes is 95437 (94853 + 584). (As in this example, this process can count files more than once!)
 
-Find all of the directories with a total size of at most 100000. What is the sum of the total sizes of those directories?
+Find all of the directories with a total size of at most 100000. **What is the sum of the total sizes of those directories?**
 
 # Part Two
 Now, you're ready to choose a directory to delete.
@@ -90,9 +90,9 @@ To achieve this, you have the following options:
 * Delete directory a, which would increase unused space by 94853.
 * Delete directory d, which would increase unused space by 24933642.
 * Delete directory /, which would increase unused space by 48381165.
-* 
+
 Directories e and a are both too small; deleting them would not free up enough space. However, directories d and / are both big enough! Between these, choose the smallest: d, increasing unused space by 24933642.
 
-Find the smallest directory that, if deleted, would free up enough space on the filesystem to run the update. What is the total size of that directory?
+Find the smallest directory that, if deleted, would free up enough space on the filesystem to run the update. **What is the total size of that directory?**
 
 Your puzzle answer was 9608311.

@@ -75,3 +75,5 @@ In the above example, the final row is 6, the final column is 8, and the final f
 
 Follow the path given in the monkeys' notes. 
 **What is the final password?**
+
+Your puzzle answer was 52311.

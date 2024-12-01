@@ -1,4 +1,4 @@
-# Day 1: Historian Hysteria ---
+# Day 1: Historian Hysteria
 The Chief Historian is always present for the big Christmas sleigh launch, but nobody has seen him in months! Last anyone heard, he was visiting locations that are historically significant to the North Pole; a group of Senior Historians has asked you to accompany them as they check the places they think he was most likely to visit.
 
 As each location is checked, they will mark it on their list with a star. They figure the Chief Historian must be in one of the first fifty places they'll look, so in order to save Christmas, you need to help them get fifty stars on their list before Santa takes off on December 25th.
@@ -14,14 +14,14 @@ Throughout the Chief's office, the historically significant locations are listed
 There's just one problem: by holding the two lists up side by side (your puzzle input), it quickly becomes clear that the lists aren't very similar. Maybe you can help The Historians reconcile their lists?
 
 For example:
-´´´
-3   4
-4   3
-2   5
-1   3
-3   9
-3   3
-´´´
+
+> 3   4
+> 4   3
+> 2   5
+> 1   3
+> 3   9
+> 3   3
+
 Maybe the lists are only off by a small amount! To find out, pair up the numbers and measure how far apart they are. Pair up the smallest number in the left list with the smallest number in the right list, then the second-smallest left number with the second-smallest right number, and so on.
 
 Within each pair, figure out how far apart the two numbers are; you'll need to add up all of those distances. For example, if you pair up a 3 from the left list with a 7 from the right list, the distance apart is 4; if you pair up a 9 with a 3, the distance apart is 6.
@@ -50,15 +50,15 @@ The Historians can't agree on which group made the mistakes or how to read most 
 This time, you'll need to figure out exactly how often each number from the left list appears in the right list. Calculate a total similarity score by adding up each number in the left list after multiplying it by the number of times that number appears in the right list.
 
 Here are the same example lists again:
-´´´
-3   4
-4   3
-2   5
-1   3
-3   9
-3   3
-´´´
-For these example lists, here is the process of finding the similarity score:
+
+> 3   4
+> 4   3
+> 2   5
+> 1   3
+> 3   9
+> 3   3
+ 
+ For these example lists, here is the process of finding the similarity score:
 
 * The first number in the left list is 3. It appears in the right list three times, so the similarity score increases by 3 * 3 = 9.
 * The second number in the left list is 4. It appears in the right list once, so the similarity score increases by 4 * 1 = 4.

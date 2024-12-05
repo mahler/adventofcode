@@ -1,104 +1,82 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"os"
-	"strings"
 )
 
 func main() {
-	// Read the input file
-	data, err := os.ReadFile("puzzle.txt")
-	if err != nil {
-		fmt.Println("Error reading file:", err)
-		return
-	}
+	grid := make(map[struct{ x, y int }]rune)
+	var xh, yh int
 
-	// Split the file content into lines
-	lines := strings.Split(string(data), "\n")
+	data, _ := os.Open("puzzle.txt")
+	defer data.Close()
 
-	// Remove any empty lines at the end
-	for len(lines) > 0 && lines[len(lines)-1] == "" {
-		lines = lines[:len(lines)-1]
-	}
+	scanner := bufio.NewScanner(data)
 
-	// Parse the grid
-	H, W := len(lines), len(lines[0])
-	grid := make(map[string]rune)
-	for y := 0; y < H; y++ {
-		for x := 0; x < W; x++ {
-			grid[fmt.Sprintf("%d,%d", y, x)] = rune(lines[y][x])
+	for y := 0; scanner.Scan(); y++ {
+		line := scanner.Text()
+		for x, c := range line {
+			grid[struct{ x, y int }{x, y}] = c
+			xh = max(xh, x)
+			yh = max(yh, y)
 		}
 	}
 
-	// Part 1 - Find anything that says 'XMAS'
-	target := "XMAS"
-	deltas := generateDeltas()
-	count := 0
-
-	for coord := range grid {
-		for _, delta := range deltas {
-			candidate := findCandidate(grid, coord, delta, len(target))
-			if candidate == target {
-				count++
+	part1 := 0
+	for y := 0; y <= yh; y++ {
+		for x := 0; x <= xh; x++ {
+			for dx := -1; dx <= 1; dx++ {
+				for dy := -1; dy <= 1; dy++ {
+					word := getWord(grid, x, y, dx, dy)
+					if word == "XMAS" {
+						part1++
+					}
+				}
 			}
 		}
 	}
-	fmt.Println("Part 1:How many times does XMAS appear?")
-	fmt.Println(count)
+	fmt.Println("Part1: How many times does XMAS appear?")
+	fmt.Println(part1)
 
-}
-
-// Generate all possible deltas excluding (0,0)
-func generateDeltas() [][]int {
-	var deltas [][]int
-	for _, dy := range []int{-1, 0, 1} {
-		for _, dx := range []int{-1, 0, 1} {
-			if dx != 0 || dy != 0 {
-				deltas = append(deltas, []int{dy, dx})
+	part2 := 0
+	for y := 0; y <= yh; y++ {
+		for x := 0; x <= xh; x++ {
+			diag1 := []rune{
+				grid[struct{ x, y int }{x - 1, y - 1}],
+				grid[struct{ x, y int }{x, y}],
+				grid[struct{ x, y int }{x + 1, y + 1}],
+			}
+			diag2 := []rune{
+				grid[struct{ x, y int }{x - 1, y + 1}],
+				grid[struct{ x, y int }{x, y}],
+				grid[struct{ x, y int }{x + 1, y - 1}],
+			}
+			word1 := string(diag1)
+			word2 := string(diag2)
+			if (word1 == "MAS" || word1 == "SAM") &&
+				(word2 == "MAS" || word2 == "SAM") {
+				part2++
 			}
 		}
 	}
-	return deltas
+	fmt.Println()
+	fmt.Println("Part 2: How many times does an X-MAS appear?")
+	fmt.Println(part2)
 }
 
-// Find a candidate string based on given coordinate, delta, and length
-func findCandidate(grid map[string]rune, coord string, delta []int, length int) string {
-	coords := strings.Split(coord, ",")
-	y, x := parseInt(coords[0]), parseInt(coords[1])
-
-	var candidate strings.Builder
-	for i := 0; i < length; i++ {
-		newCoord := fmt.Sprintf("%d,%d", y+delta[0]*i, x+delta[1]*i)
-		if char, exists := grid[newCoord]; exists {
-			candidate.WriteRune(char)
-		}
+func getWord(grid map[struct{ x, y int }]rune, x, y, dx, dy int) string {
+	word := []rune{}
+	for n := 0; n < 4; n++ {
+		word = append(word, grid[struct{ x, y int }{x + dx*n, y + dy*n}])
 	}
-	return candidate.String()
+	return string(word)
 }
 
-// Get adjacent characters for Part 2
-func getAdjacentChars(grid map[string]rune, coord string, dyRange, dxRange []int) string {
-	coords := strings.Split(coord, ",")
-	y, x := parseInt(coords[0]), parseInt(coords[1])
-
-	var chars strings.Builder
-	for _, dy := range dyRange {
-		for _, dx := range dxRange {
-			newCoord := fmt.Sprintf("%d,%d", y+dy, x+dx)
-			if char, exists := grid[newCoord]; exists {
-				chars.WriteRune(char)
-			}
-		}
+func max(a, b int) int {
+	if a > b {
+		return a
 	}
-	return chars.String()
-}
-
-// Helper function to parse integer from string
-func parseInt(s string) int {
-	val := 0
-	for _, r := range s {
-		val = val*10 + int(r-'0')
-	}
-	return val
+	return b
 }

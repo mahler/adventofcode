@@ -1,12 +1,27 @@
 # Advent of Code, 2015
-This folder contains solutions to [Advent of Code 2015][Advent of Code 2015](https://adventofcode.com/2015) written in "pure" [Go](https://golang.org/) - using online go and the Go Standard library.
-
-The code here was developed as part of my path to learning the Go programming language. It's generally
-written to be readable and expressive, and as new to go, it may not be [idiomatic Go code](https://dave.cheney.net/2020/02/23/the-zen-of-go).
-
-
-## Alternate solutions in [Go](https://golang.org/)
-
-* [Goodtriffin](https://github.com/goddtriffin/AdventOfCode-2015)
-* [fesh0r](https://github.com/fesh0r/adventofcode/tree/master/2015)
-* [mevdschee](https://github.com/mevdschee/AdventOfCode2015)
+Solutions for [Advent of Code 2015](https://adventofcode.com/2015).
+*  [01](01/).
+*  [02](02/).
+*  [03](03/).
+*  [04](04/).
+*  [05](05/).
+*  [06](06/).
+*  [07](07/).
+*  [08](08/).
+*  [09](09/).
+*  [10](10/).
+*  [11](11/).
+*  [12](12/).
+*  [13](13/).
+*  [14](14/).
+*  [15](15/).
+*  [16](16/).
+*  [17](17/).
+*  [18](18/).
+*  [19](19/).
+*  [20](20/).
+*  [21](21/).
+*  [22](22/).
+*  [23](23/).
+*  [24](24/).
+*  [25](25/).

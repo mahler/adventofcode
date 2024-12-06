@@ -5,3 +5,4 @@ Solutions for [Advent of Code 2025](https://adventofcode.com/).
 *  [03](03/).
 *  [04](04/).
 *  [05](05/).
+*  [06](06/).

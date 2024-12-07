@@ -149,23 +149,3 @@ func main() {
 	fmt.Printf("Day 03 Part 1: %d\n", part1Result)
 	fmt.Printf("Day 03 Part 2: %d\n", part2Result)
 }
-
-// Test function to match Rust tests
-func test() {
-	input := `467..114..
-...*......
-..35..633.
-......#...
-617*......
-.....+.58.
-..592.....
-......755.
-...$.*....
-.664.598..`
-
-	part1Result := part1(input)
-	part2Result := part2(input)
-
-	fmt.Println("Test Part 1:", part1Result == 4361)
-	fmt.Println("Test Part 2:", part2Result == 467835)
-}

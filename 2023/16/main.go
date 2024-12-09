@@ -74,7 +74,7 @@ func main() {
 		tests = append(tests, []interface{}{len(ll) - 1, y, "U"})
 	}
 
-	fmt.Println("Part 1: ")
+	fmt.Println("Part 1: How many tiles end up being energized?")
 	fmt.Println(countFrom(ll, []interface{}{0, 0, "R"}))
 
 	maxIlluminated := 0

@@ -8,3 +8,5 @@ Solutions for [Advent of Code 2024](https://adventofcode.com/).
 *  [06](06/).
 *  [07](07/).
 *  [08](08/).
+*  [09](09/).
+*  [10](10/).

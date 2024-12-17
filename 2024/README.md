@@ -11,7 +11,7 @@ Solutions for [Advent of Code 2024](https://adventofcode.com/).
 *  [09](09/).
 *  [10](10/).
 *  [11](11/).
-*  12
+*  [12](12/).
 *  [13](13/).
 *  14
 *  15

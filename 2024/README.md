@@ -18,3 +18,4 @@ Solutions for [Advent of Code 2024](https://adventofcode.com/).
 *  [16](16/).
 *  [17](17/).
 *  [18](18/).
+*  [19](19/).

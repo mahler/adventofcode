@@ -1,5 +1,5 @@
-# Advent of Code, 2019
-Solutions for [Advent of Code 2019](https://adventofcode.com/2019).
+# Advent of Code, 2021
+Solutions for [Advent of Code 2021](https://adventofcode.com/2021).
 *  [01](01/).
 *  [02](02/).
 *  [03](03/).

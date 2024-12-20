@@ -1,26 +1,27 @@
-# Advent of Code, 2018
-
-This folder contains solutions to [Advent of Code 2018](https://adventofcode.com/2018) written in "pure" [Go](https://golang.org/) - using online go and the Go Standard library.
-
-The code here was developed as part of my path to learning the Go programming language. It's generally
-written to be readable and expressive, and as new to go, it may not be [idiomatic Go code](https://dave.cheney.net/2020/02/23/the-zen-of-go).
-
-## Other Solutions in Go
-
-- [Alex-Wauters/advent-code-2018](https://github.com/Alex-Wauters/advent-code-2018)
-- [VictorHom/advent_of_code_2018](https://github.com/VictorHom/advent_of_code_2018)
-- [atssteve/advent_of_code_2018](https://github.com/atssteve/advent_of_code_2018)
-- [dandua98/AdventOfCode2018](https://github.com/dandua98/AdventOfCode2018)
-- [feffes/adventofcode2018](https://github.com/feffes/adventofcode2018)
-- [feiss/aoc2018](https://github.com/feiss/aoc2018)
-- [fvm/super-duper-barnacle-AoC-2018](https://github.com/fvm/super-duper-barnacle-AoC-2018)
-- [glidergeek/adventofcode18](https://github.com/glidergeek/adventofcode18) 
-- [kindermoumoute/adventofcode](https://github.com/kindermoumoute/adventofcode)
-- [mauricioabreu/AdventOfCode2018](https://github.com/mauricioabreu/AdventOfCode2018)
-- [metalim/metalim.adventofcode.2018.go](https://github.com/metalim/metalim.adventofcode.2018.go)
-- [thlacroix/goadvent](https://github.com/thlacroix/goadvent) 
-- [tpaschalis/Golang-practice](https://github.com/tpaschalis/Golang-practice)
-- [wilbertom/advent-of-code-2018](https://github.com/wilbertom/advent-of-code-2018)
-- [stephenfeagin/Go-AdventOfCode](https://github.com/stephenfeagin/Go-AdventOfCode)
-- [GreenLightning/aoc18](https://github.com/GreenLightning/aoc18)
-- [mnml/aoc](https://github.com/mnml/aoc)
+# Solutions for 2024
+Solutions for [Advent of Code 2018](https://adventofcode.com/2018).
+*  [01](01/).
+*  [02](02/).
+*  [03](03/).
+*  [04](04/).
+*  [05](05/).
+*  [06](06/).
+*  [07](07/).
+*  [08](08/).
+*  [09](09/).
+*  [10](10/).
+*  [11](11/).
+*  [12](12/).
+*  [13](13/).
+*  [14](14/).
+*  [15](15/).
+*  [16](16/).
+*  [17](17/).
+*  [18](18/).
+*  [19](19/).
+*  [20](20/).
+*  [20](21/).
+*  [20](22/).
+*  [20](23/).
+*  [20](24/).
+*  [20](25/).

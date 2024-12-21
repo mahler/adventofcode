@@ -76,7 +76,11 @@ func main() {
 		}
 	}
 
+	fmt.Println("Part 1: what is the number of the bot that is responsible for comparing value-61 microchips with value-17 microchips?")
 	fmt.Println(specialbot)
+
+	fmt.Println()
+	fmt.Println("Part 2: What do you get if you multiply together the values of one chip in each of outputs 0, 1, and 2?")
 	fmt.Println(output[0][0] * output[1][0] * output[2][0])
 }
 

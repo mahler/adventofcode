@@ -9,7 +9,7 @@ Solutions for [Advent of Code 2016](https://adventofcode.com/2016).
 *  [07](07/).
 *  [08](08/).
 *  [09](09/).
-* 10.
+*  [10](10/).
 * 11.
 *  [12](12/).
 * 13.

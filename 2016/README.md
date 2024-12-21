@@ -12,7 +12,7 @@ Solutions for [Advent of Code 2016](https://adventofcode.com/2016).
 *  [10](10/).
 *  [11](11/).
 *  [12](12/).
-* 13.
+*  [13](13/).
 * 14.
 * 15.
 *  [16](16/).

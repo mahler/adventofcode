@@ -24,3 +24,4 @@ Solutions for [Advent of Code 2024](https://adventofcode.com/).
 *  [22](22/).
 *  [23](23/).
 *  [24](24/).
+*  [25](25/).

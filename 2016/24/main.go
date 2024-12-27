@@ -10,15 +10,6 @@ type Point struct {
 	x, y int
 }
 
-// readInput reads the maze from file
-func readInput(filename string) []string {
-	data, err := os.ReadFile(filename)
-	if err != nil {
-		panic(err)
-	}
-	return strings.Split(strings.TrimSpace(string(data)), "\n")
-}
-
 // createMaze converts input strings to 2D array and finds marked points
 func createMaze(input []string) ([][]int, []Point) {
 	maze := make([][]int, len(input))

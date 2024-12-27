@@ -22,6 +22,6 @@ Solutions for [Advent of Code 2016](https://adventofcode.com/2016).
 *  [20](20/).
 *  [21](21/).
 * 22.
-* 23.
-* 24.
+*  [23](23/).
+*  [24](24/).
 * 25.

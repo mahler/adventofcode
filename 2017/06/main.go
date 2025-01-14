@@ -34,8 +34,14 @@ func main() {
 
 		// Check if we've seen this state before
 		if firstSeen, exists := seen[state]; exists {
-			fmt.Printf("Part 1: %d\n", cycles)
-			fmt.Printf("Part 2: %d\n", cycles-firstSeen)
+
+			fmt.Println("Part 1: Given the initial block counts in your puzzle input, how many redistribution")
+			fmt.Println("cycles must be completed before a configuration is produced that has been seen before?")
+			fmt.Println(cycles)
+
+			fmt.Println()
+			fmt.Println("Part 2: How many cycles are in the infinite loop that arises from the configuration in your puzzle input?")
+			fmt.Println(cycles - firstSeen)
 			break
 		}
 

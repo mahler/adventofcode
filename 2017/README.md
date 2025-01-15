@@ -6,3 +6,5 @@ Solutions for [Advent of Code 2017](https://adventofcode.com/2017).
 *  [04](04/).
 *  [05](05/).
 *  [06](06/).
+*  [07](07/).
+*  [08](08/).

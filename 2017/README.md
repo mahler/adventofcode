@@ -15,3 +15,4 @@ Solutions for [Advent of Code 2017](https://adventofcode.com/2017).
 *  [13](13/).
 *  [14](14/).
 *  [15](15/).
+*  [16](16/).

@@ -17,3 +17,5 @@ Solutions for [Advent of Code 2017](https://adventofcode.com/2017).
 *  [15](15/).
 *  [16](16/).
 *  [17](17/).
+*  [18](18/).
+*  [19](19/).

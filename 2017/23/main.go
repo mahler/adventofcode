@@ -68,6 +68,10 @@ func main() {
 	instructions := strings.Split(string(data), "\n")
 	instructions = instructions[:len(instructions)-1] // remove last empty line
 
+	fmt.Println("Part 1: If you run the program (your puzzle input), how many times is the mul instruction invoked?")
 	fmt.Println(solve(1, instructions))
+
+	fmt.Println()
+	fmt.Println("Part 2: After setting register a to 1, if the program were to run to completion, what value would be left in register h?")
 	fmt.Println(solve(2, instructions))
 }

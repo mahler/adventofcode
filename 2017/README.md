@@ -23,3 +23,5 @@ Solutions for [Advent of Code 2017](https://adventofcode.com/2017).
 *  [21](21/).
 *  [22](22/).
 *  [23](23/).
+*  [24](24/).
+*  [25](25/).

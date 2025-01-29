@@ -166,4 +166,13 @@ How many tiles can be reached by the water? *To prevent counting forever*, igno
 
 So, in the example above, counting both water at rest (`~`) and other sand tiles the water can hypothetically reach (`|`), the total number of tiles the water can reach is `*57*`.
 
-*How many tiles can the water reach* within the range of `y` values in your scan?
+**How many tiles can the water reach* within the range of `y` values in your scan?**
+
+Your puzzle answer was 558960.
+
+# Part Two
+This important natural resource will need to last for at least thousands of years. Are the Elves collecting this lumber sustainably?
+
+**What will the total resource value of the lumber collection area be after 1000000000 minutes?**
+
+Your puzzle answer was 207900.

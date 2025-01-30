@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
+	"os"
 	"strings"
 )
 
@@ -21,7 +22,7 @@ type NPmap [][]string
 
 func main() {
 
-	data, err := os.ReadFIle("puzzle.txt")
+	data, err := os.ReadFile("input.txt")
 	if err != nil {
 		log.Fatal("File reading error", err)
 		return
@@ -51,22 +52,22 @@ func main() {
 	}
 
 	fmt.Println()
-	fmt.Println("2018")
-	fmt.Println("Part 1: Settlers of The North Pole")
+	fmt.Println("Part 1: What will the total resource value of the lumber collection area be after 10 minutes?")
 	c := mapCount(northpolemap)
 
-	fmt.Println("Trees:", c.tree, "Lumberyards:", c.lumber)
-	fmt.Println("Value:", c.tree*c.lumber)
+	//	fmt.Println("Trees:", c.tree, "Lumberyards:", c.lumber)
+	fmt.Println(c.tree * c.lumber)
+
 	// ----------------------
 	fmt.Println()
-	fmt.Println("Part 2/ 1000000000 rounds - Painfully slow.")
+	fmt.Println("Part 2: What will the total resource value of the lumber collection area be after 1000000000 minutes? - Painfully slow.")
 	for round := 11; round <= 1000000000; round++ {
 		runRound(&northpolemap)
 	}
 
 	printMap(northpolemap)
-	fmt.Println("Trees:", c.tree, "Lumberyards:", c.lumber)
-	fmt.Println("Value:", c.tree*c.lumber)
+	//	fmt.Println("Trees:", c.tree, "Lumberyards:", c.lumber)
+	fmt.Println(c.tree * c.lumber)
 
 }
 

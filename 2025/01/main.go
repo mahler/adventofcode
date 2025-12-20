@@ -1,129 +1,104 @@
 package main
 
 import (
-        "bufio"
-        "fmt"
-        "log"
-        "os"
-        "strconv"
-        "strings"
+	"bufio"
+	"fmt"
+	"log"
+	"os"
+	"strconv"
+	"strings"
 )
 
+func readAndProcess(processMove func(pos, dist int, dir byte) (int, int)) int {
+	file, err := os.Open("input.txt")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer file.Close()
+
+	pos := 50
+	zeros := 0
+
+	scanner := bufio.NewScanner(file)
+	for scanner.Scan() {
+		line := strings.TrimSpace(scanner.Text())
+		if len(line) == 0 {
+			continue
+		}
+
+		dir := line[0]
+		dist, err := strconv.Atoi(line[1:])
+		if err != nil {
+			log.Fatalf("Invalid distance value: %v", err)
+		}
+
+		if dir != 'L' && dir != 'R' {
+			log.Fatal("Invalid direction character. Must be 'L' or 'R'.")
+		}
+
+		newPos, addZeros := processMove(pos, dist, dir)
+		pos = newPos
+		zeros += addZeros
+	}
+
+	if err := scanner.Err(); err != nil {
+		log.Fatal(err)
+	}
+
+	return zeros
+}
+
 func part1() {
-        file, err := os.Open("input.txt")
-        if err != nil {
-                log.Fatal(err)
-        }
-        defer file.Close()
+	zeros := readAndProcess(func(pos, dist int, dir byte) (int, int) {
+		if dir == 'L' {
+			pos -= dist
+		} else {
+			pos += dist
+		}
+		pos = ((pos % 100) + 100) % 100
 
-        currentPosition := 50
-        numberOfZeros := 0
+		if pos == 0 {
+			return pos, 1
+		}
+		return pos, 0
+	})
 
-        scanner := bufio.NewScanner(file)
-        for scanner.Scan() {
-                line := scanner.Text()
-                cleanValue := strings.TrimSpace(line)
-
-                if len(cleanValue) == 0 {
-                        continue
-                }
-
-                direction := cleanValue[0]
-                distance, err := strconv.Atoi(cleanValue[1:])
-                if err != nil {
-                        log.Fatalf("Invalid distance value: %v", err)
-                }
-
-                switch direction {
-                case 'L':
-                        currentPosition -= distance
-                case 'R':
-                        currentPosition += distance
-                default:
-                        log.Fatal("Invalid direction character. Must be 'L' or 'R'.")
-                }
-
-                currentPosition = ((currentPosition % 100) + 100) % 100
-                if currentPosition == 0 {
-                        numberOfZeros++
-                }
-
-                // fmt.Printf("Direction: %c, Distance: %d\n", direction, distance)
-                // fmt.Printf("Current Position: %d\n", currentPosition)
-        }
-
-        if err := scanner.Err(); err != nil {
-                log.Fatal(err)
-        }
-
-        fmt.Printf("Number of times position was zero: %d\n", numberOfZeros)
+	fmt.Printf("Number of times position was zero: %d\n", zeros)
 }
 
 func part2() {
-        file, err := os.Open("input.txt")
-        if err != nil {
-                log.Fatal(err)
-        }
-        defer file.Close()
+	zeros := readAndProcess(func(pos, dist int, dir byte) (int, int) {
+		newPos := pos
+		count := 0
 
-        currentPosition := 50
-        numberOfZeros := 0
+		if dir == 'L' {
+			newPos = ((pos-dist)%100 + 100) % 100
+			if newPos > pos && pos != 0 {
+				count++
+			}
+		} else {
+			newPos = (pos + dist) % 100
+			if newPos < pos && newPos != 0 {
+				count++
+			}
+		}
 
-        scanner := bufio.NewScanner(file)
-        for scanner.Scan() {
-                line := scanner.Text()
-                cleanValue := strings.TrimSpace(line)
+		if newPos == 0 {
+			count++
+		}
 
-                if len(cleanValue) == 0 {
-                        continue
-                }
+		count += dist / 100
 
-                direction := cleanValue[0]
-                distance, err := strconv.Atoi(cleanValue[1:])
-                if err != nil {
-                        log.Fatalf("Invalid distance value: %v", err)
-                }
+		return newPos, count
+	})
 
-                var newPosition int
-                switch direction {
-                case 'L':
-                        newPosition = ((currentPosition - distance) % 100 + 100) % 100
-                        if newPosition > currentPosition && currentPosition != 0 {
-                                numberOfZeros++
-                        }
-                case 'R':
-                        newPosition = (currentPosition + distance) % 100
-                        if newPosition < currentPosition && newPosition != 0 {
-                                numberOfZeros++
-                        }
-                default:
-                        log.Fatal("Invalid direction character. Must be 'L' or 'R'.")
-                }
-
-                currentPosition = newPosition
-
-                // land directly on zero
-                if currentPosition == 0 {
-                        numberOfZeros++
-                }
-
-                // cross over a zero
-                numberOfRotations := distance / 100
-                numberOfZeros += numberOfRotations
-
-                // fmt.Printf("Direction: %c, Distance: %d\n", direction, distance)
-                // fmt.Printf("Current Position: %d\n", currentPosition)
-                // fmt.Printf("Number of times position was zero: %d\n", numberOfZeros)
-        }
-
-        if err := scanner.Err(); err != nil {
-                log.Fatal(err)
-        }
-
-        fmt.Printf("Number of times position was zero: %d\n", numberOfZeros)
+	fmt.Printf("Number of times position was zero: %d\n", zeros)
 }
 
 func main() {
-        part1()
-        part2()
+	fmt.Println("What's the actual password to open the door?")
+	part1()
+	fmt.Println()
+	fmt.Println("what is the password to open the door?")
+	part2()
 }

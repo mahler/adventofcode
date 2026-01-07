@@ -112,11 +112,14 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	fmt.Println("Analyze your manifold diagram. How many times will the beam be split?")
 	fmt.Println(part1)
 
 	part2, err := solvePart2("input.txt")
 	if err != nil {
 		log.Fatal(err)
 	}
+	fmt.Println()
+	fmt.Println("In total, how many different timelines would a single tachyon particle end up on?")
 	fmt.Println(part2)
 }

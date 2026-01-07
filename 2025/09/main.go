@@ -3,26 +3,41 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"log"
 	"os"
-	"sort"
 	"strconv"
 	"strings"
 )
 
-type Point struct {
-	X, Y int
+const inputFile = "input.txt"
+
+type coord struct {
+	x, y int
 }
 
-type AreaPair struct {
-	Area int
-	P0   Point
-	P1   Point
-}
+func readCoords() ([]coord, error) {
+	f, err := os.Open(inputFile)
+	if err != nil {
+		return nil, err
+	}
+	defer f.Close()
 
-func computeArea(p0, p1 Point) int {
-	dx := 1 + abs(p0.X-p1.X)
-	dy := 1 + abs(p0.Y-p1.Y)
-	return dx * dy
+	var coords []coord
+	scanner := bufio.NewScanner(f)
+	for scanner.Scan() {
+		line := strings.TrimSpace(scanner.Text())
+		parts := strings.Split(line, ",")
+		if len(parts) != 2 {
+			continue
+		}
+		x, err1 := strconv.Atoi(strings.TrimSpace(parts[0]))
+		y, err2 := strconv.Atoi(strings.TrimSpace(parts[1]))
+		if err1 != nil || err2 != nil {
+			continue
+		}
+		coords = append(coords, coord{x, y})
+	}
+	return coords, scanner.Err()
 }
 
 func abs(n int) int {
@@ -32,13 +47,6 @@ func abs(n int) int {
 	return n
 }
 
-func min(a, b int) int {
-	if a < b {
-		return a
-	}
-	return b
-}
-
 func max(a, b int) int {
 	if a > b {
 		return a
@@ -46,146 +54,210 @@ func max(a, b int) int {
 	return b
 }
 
-func generateStraightLine(p0, p1 Point) []Point {
-	var points []Point
-	if p0.X == p1.X {
-		minY := min(p0.Y, p1.Y)
-		maxY := max(p0.Y, p1.Y)
-		for y := minY + 1; y < maxY; y++ {
-			points = append(points, Point{p0.X, y})
-		}
-	} else if p0.Y == p1.Y {
-		minX := min(p0.X, p1.X)
-		maxX := max(p0.X, p1.X)
-		for x := minX + 1; x < maxX; x++ {
-			points = append(points, Point{x, p0.Y})
-		}
-	} else {
-		panic("Only horizontal or vertical lines are supported")
+func min(a, b int) int {
+	if a < b {
+		return a
 	}
-	return points
+	return b
 }
 
-func removeAdjacent(coords []int) []int {
-	var filtered []int
-	prev := -1000000 // Sentinel value
+func part1() {
+	coords, err := readCoords()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	area := 0
+	for i := 0; i < len(coords); i++ {
+		x1, y1 := coords[i].x, coords[i].y
+		for j := i + 1; j < len(coords); j++ {
+			x2, y2 := coords[j].x, coords[j].y
+			if x1 != x2 && y1 != y2 {
+				a := (abs(x1-x2) + 1) * (abs(y1-y2) + 1)
+				area = max(area, a)
+			}
+		}
+	}
+	fmt.Println(area)
+}
+
+func part2() {
+	coords, err := readCoords()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	maxX, maxY := 0, 0
 	for _, c := range coords {
-		if prev == -1000000 || c-prev > 1 {
-			filtered = append(filtered, c)
-		} else if len(filtered) > 0 {
-			filtered = filtered[:len(filtered)-1]
+		maxX = max(maxX, c.x)
+		maxY = max(maxY, c.y)
+	}
+
+	// Vertical sweep - build spans
+	type span struct {
+		x1, x2 int
+	}
+	spans := make([]*span, maxY+2)
+
+	// Append first coord to create closed loop
+	coords = append(coords, coords[0])
+
+	for i := 1; i < len(coords); i++ {
+		x1, y1 := coords[i-1].x, coords[i-1].y
+		x2, y2 := coords[i].x, coords[i].y
+
+		if x1 > x2 {
+			x1, x2 = x2, x1
 		}
-		prev = c
-	}
-	return filtered
-}
-
-func bisectLeft(arr []int, x int) int {
-	return sort.Search(len(arr), func(i int) bool { return arr[i] >= x })
-}
-
-func containsRectangle(p0, p1 Point, yLists, xLists map[int][]int) bool {
-	xMin := min(p0.X, p1.X) + 1
-	xMax := max(p0.X, p1.X) - 1
-	yMin := min(p0.Y, p1.Y) + 1
-	yMax := max(p0.Y, p1.Y) - 1
-
-	// Test all four edges
-	if bisectLeft(yLists[xMin], yMin) != bisectLeft(yLists[xMin], yMax) {
-		return false
-	}
-	if bisectLeft(yLists[xMax], yMin) != bisectLeft(yLists[xMax], yMax) {
-		return false
-	}
-	if bisectLeft(xLists[yMin], xMin) != bisectLeft(xLists[yMin], xMax) {
-		return false
-	}
-	if bisectLeft(xLists[yMax], xMin) != bisectLeft(xLists[yMax], xMax) {
-		return false
-	}
-
-	// Check all interior rows and columns
-	for y := yMin; y <= yMax; y++ {
-		if bisectLeft(xLists[y], xMin) != bisectLeft(xLists[y], xMax) {
-			return false
+		if y1 > y2 {
+			y1, y2 = y2, y1
 		}
-	}
-	for x := xMin; x <= xMax; x++ {
-		if bisectLeft(yLists[x], yMin) != bisectLeft(yLists[x], yMax) {
-			return false
+
+		for y := y1; y <= y2; y++ {
+			if spans[y] == nil {
+				spans[y] = &span{x1, x2}
+			} else {
+				spans[y].x1 = min(x1, spans[y].x1)
+				spans[y].x2 = max(x2, spans[y].x2)
+			}
 		}
 	}
 
-	// Check if rectangle is inside the shape
-	if bisectLeft(xLists[yMax], xMax)%2 == 0 {
-		return false
+	// Remove the appended coord
+	coords = coords[:len(coords)-1]
+
+	rectOK := func(x1, y1, x2, y2 int) bool {
+		if x1 > x2 {
+			x1, x2 = x2, x1
+		}
+		if y1 > y2 {
+			y1, y2 = y2, y1
+		}
+		for y := y1; y <= y2; y++ {
+			if spans[y] == nil {
+				return false
+			}
+			sx1, sx2 := spans[y].x1, spans[y].x2
+			if x1 < sx1 || x1 > sx2 || x2 < sx1 || x2 > sx2 {
+				return false
+			}
+		}
+		return true
 	}
 
-	return true
+	area := 0
+	for i := 0; i < len(coords); i++ {
+		x1, y1 := coords[i].x, coords[i].y
+		for j := i + 1; j < len(coords); j++ {
+			x2, y2 := coords[j].x, coords[j].y
+			if x1 != x2 && y1 != y2 {
+				a := (abs(x1-x2) + 1) * (abs(y1-y2) + 1)
+				if a > area && rectOK(x1, y1, x2, y2) {
+					area = a
+				}
+			}
+		}
+	}
+	fmt.Println(area)
 }
 
 func main() {
-	file, err := os.Open("input.txt")
+
+	// Part1
+	coords, err := readCoords()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error opening file: %v\n", err)
-		os.Exit(1)
-	}
-	defer file.Close()
-
-	scanner := bufio.NewScanner(file)
-	var reds []Point
-
-	// Read red points
-	for scanner.Scan() {
-		line := scanner.Text()
-		parts := strings.Split(line, ",")
-		x, _ := strconv.Atoi(strings.TrimSpace(parts[0]))
-		y, _ := strconv.Atoi(strings.TrimSpace(parts[1]))
-		reds = append(reds, Point{x, y})
+		log.Fatal(err)
 	}
 
-	if err := scanner.Err(); err != nil {
-		fmt.Fprintf(os.Stderr, "Error reading file: %v\n", err)
-		os.Exit(1)
+	area := 0
+	for i := 0; i < len(coords); i++ {
+		x1, y1 := coords[i].x, coords[i].y
+		for j := i + 1; j < len(coords); j++ {
+			x2, y2 := coords[j].x, coords[j].y
+			if x1 != x2 && y1 != y2 {
+				a := (abs(x1-x2) + 1) * (abs(y1-y2) + 1)
+				area = max(area, a)
+			}
+		}
+	}
+	fmt.Println("Using two red tiles as opposite corners, what is the largest area of any rectangle you can make?")
+	fmt.Println(area)
+
+	// Part2
+	maxX, maxY := 0, 0
+	for _, c := range coords {
+		maxX = max(maxX, c.x)
+		maxY = max(maxY, c.y)
 	}
 
-	// Generate green points (boundary)
-	var greens []Point
-	for i := 0; i < len(reds); i++ {
-		p0 := reds[i]
-		p1 := reds[(i+1)%len(reds)]
-		greens = append(greens, generateStraightLine(p0, p1)...)
+	// Vertical sweep - build spans
+	type span struct {
+		x1, x2 int
 	}
+	spans := make([]*span, maxY+2)
 
-	// Generate all pairs and compute areas
-	var areaPairs []AreaPair
-	for i := 0; i < len(reds); i++ {
-		for j := i + 1; j < len(reds); j++ {
-			area := computeArea(reds[i], reds[j])
-			areaPairs = append(areaPairs, AreaPair{area, reds[i], reds[j]})
+	// Append first coord to create closed loop
+	coords = append(coords, coords[0])
+
+	for i := 1; i < len(coords); i++ {
+		x1, y1 := coords[i-1].x, coords[i-1].y
+		x2, y2 := coords[i].x, coords[i].y
+
+		if x1 > x2 {
+			x1, x2 = x2, x1
+		}
+		if y1 > y2 {
+			y1, y2 = y2, y1
+		}
+
+		for y := y1; y <= y2; y++ {
+			if spans[y] == nil {
+				spans[y] = &span{x1, x2}
+			} else {
+				spans[y].x1 = min(x1, spans[y].x1)
+				spans[y].x2 = max(x2, spans[y].x2)
+			}
 		}
 	}
 
-	// Sort by area in descending order
-	sort.Slice(areaPairs, func(i, j int) bool {
-		return areaPairs[i].Area > areaPairs[j].Area
-	})
+	// Remove the appended coord
+	coords = coords[:len(coords)-1]
 
-	// PART 1
-	fmt.Println(areaPairs[0].Area)
-
-	// PART 2
-	// Build coordinate lists
-	yLists := make(map[int][]int)
-	xLists := make(map[int][]int)
-
-	allPoints := append([]Point{}, reds...)
-	allPoints = append(allPoints, greens...)
-
-	for _, point := range allPoints {
-		yLists[point.X] = append(yLists[point.X], point.Y)
-		xLists[point.Y] = append(xLists[point.Y], point.X)
+	rectOK := func(x1, y1, x2, y2 int) bool {
+		if x1 > x2 {
+			x1, x2 = x2, x1
+		}
+		if y1 > y2 {
+			y1, y2 = y2, y1
+		}
+		for y := y1; y <= y2; y++ {
+			if spans[y] == nil {
+				return false
+			}
+			sx1, sx2 := spans[y].x1, spans[y].x2
+			if x1 < sx1 || x1 > sx2 || x2 < sx1 || x2 > sx2 {
+				return false
+			}
+		}
+		return true
 	}
 
-	// Sort all lists
-	for x := range yLi
+	area = 0
+	for i := 0; i < len(coords); i++ {
+		x1, y1 := coords[i].x, coords[i].y
+		for j := i + 1; j < len(coords); j++ {
+			x2, y2 := coords[j].x, coords[j].y
+			if x1 != x2 && y1 != y2 {
+				a := (abs(x1-x2) + 1) * (abs(y1-y2) + 1)
+				if a > area && rectOK(x1, y1, x2, y2) {
+					area = a
+				}
+			}
+		}
+	}
+
+	fmt.Println()
+	fmt.Println("Using two red tiles as opposite corners, what is the largest area of any rectangle you can make using only red and green tiles?")
+	fmt.Println(area)
+
+}
